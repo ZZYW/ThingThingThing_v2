@@ -58,13 +58,14 @@ public class Thing : MonoBehaviour
     }
 
 
-    Rigidbody rigidbody;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = gameObject.AddComponent<Rigidbody>();        
+       
+        gameObject.AddComponent<Boid>();
     }
 
     // Update is called once per frame
