@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 public class Boid : MonoBehaviour
@@ -11,36 +12,28 @@ public class Boid : MonoBehaviour
     public float seekWeight = 1;
     public float repellerWeight = 1;
     public Rigidbody rb;
-    public float maxForce = 1;    // Maximum steering force
+    public float maxForceSq = 40;    // Maximum steering force
     public float maxSpeed = 2;   // Maximum speed
+    public bool inEffect = true;
 
     Vector3 finalForce;
     public Transform target;
 
-    List<Boid> neighbors;
-
     private void Awake()
     {
-        neighbors = new List<Boid>();
         finalForce = Vector3.zero;
     }
-
-
     void Start()
     {
         rb = gameObject.AddComponent<Rigidbody>();
         rb.velocity = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
-
-        //neighbor detector
-        var trigger = gameObject.AddComponent<SphereCollider>();
-        trigger.isTrigger = true;
-        trigger.radius = 30;
     }
 
 
     // We accumulate a new acceleration each time based on three rules
     void Flock(List<Boid> boids)
     {
+        // Debug.Log(boids.Count);
         Vector3 sep = Separate(boids);   // Separation
         Vector3 ali = Align(boids);      // Alignment
         Vector3 coh = Cohesion(boids);   // Cohesion
@@ -62,19 +55,29 @@ public class Boid : MonoBehaviour
 
     private void Update()
     {
-        Flock(neighbors);
+        if (!inEffect) return;
+        Flock(ThingGod.god.flock.Select(i => i.GetComponent<Boid>()).ToList());
     }
 
     // Method to update transform.position
     void FixedUpdate()
     {
+        if (!inEffect) return;
+
+        while (finalForce.sqrMagnitude > maxForceSq)
+        {
+            finalForce *= 0.95f;
+        }
+
         rb.AddForce(finalForce * Time.fixedDeltaTime);
 
-
         float rotationSmoothSpeed = 3.14f / 2f;
-        Quaternion targetRotation = Quaternion.LookRotation(rb.velocity.normalized);
-        Quaternion newRotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * rotationSmoothSpeed);
-        rb.rotation = newRotation;
+        if (rb.velocity.normalized != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(rb.velocity.normalized);
+            Quaternion newRotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * rotationSmoothSpeed);
+            rb.rotation = newRotation;
+        }
     }
 
 
@@ -88,10 +91,6 @@ public class Boid : MonoBehaviour
         desired *= maxSpeed;
         // Steering = Desired minus Velocity
         Vector3 steer = desired - rb.velocity;
-        while (steer.magnitude > maxForce)
-        {
-            steer *= 0.9f;
-        }
         return steer;
     }
 
@@ -125,16 +124,12 @@ public class Boid : MonoBehaviour
         }
 
         // As long as the vector is greater than 0
-        if (steer.magnitude > 0)
+        if (steer.sqrMagnitude > 0)
         {
             // Implement Reynolds: Steering = Desired - Velocity
             steer.Normalize();
             steer *= maxSpeed;
             steer -= rb.velocity;
-            while (steer.magnitude > maxForce)
-            {
-                steer *= 0.9f;
-            }
         }
         return steer;
     }
@@ -163,10 +158,7 @@ public class Boid : MonoBehaviour
             sum.Normalize();
             sum *= maxSpeed;
             Vector3 steer = sum - rb.velocity;
-            while (steer.magnitude > maxForce)
-            {
-                steer *= 0.9f;
-            }
+
             return steer;
         }
         else
@@ -184,6 +176,7 @@ public class Boid : MonoBehaviour
         int count = 0;
         foreach (Boid other in boids)
         {
+
             float d = Vector3.Distance(transform.position, other.transform.position);
             if ((d > 0) && (d < neighbordist))
             {
@@ -201,29 +194,4 @@ public class Boid : MonoBehaviour
             return new Vector3(0, 0);
         }
     }
-
-
-    //Neighbor detection
-    private void OnTriggerEnter(Collider other)
-    {
-        var theOther = other.gameObject.GetComponent<Boid>();
-        if (theOther == null) return;
-        if (neighbors.Contains(theOther) == false)
-        {
-            neighbors.Add(theOther);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        var theOther = other.gameObject.GetComponent<Boid>();
-        if (theOther == null) return;
-        if (neighbors.Contains(theOther))
-        {
-            neighbors.Remove(theOther);
-        }
-    }
-
-
-
 }
