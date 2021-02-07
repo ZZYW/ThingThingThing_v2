@@ -153,13 +153,14 @@ MonoBehaviour:
   things: []
   flock: []
   initialTuli: 10
-  thingCount: 40
+  thingCount: 30
   monoliths:
   - {fileID: 571165381}
   - {fileID: 762802019}
   - {fileID: 476830064}
   - {fileID: 1459263217}
   ps: {fileID: 1523073302}
+  agent: {fileID: 164766251019791773, guid: 2329e574081ff470d90fed37f6efef4f, type: 3}
 --- !u!4 &175367765
 Transform:
   m_ObjectHideFlags: 0
@@ -192,7 +193,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &290149751
 Transform:
   m_ObjectHideFlags: 0

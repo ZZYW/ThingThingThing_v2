@@ -12,22 +12,38 @@ public class Boid : MonoBehaviour
     public float seekWeight = 1;
     public float repellerWeight = 1;
     public Rigidbody rb;
-    public float maxForceSq = 40;    // Maximum steering force
-    public float maxSpeed = 2;   // Maximum speed
+
+    public float maxForceSq = 100;    // Maximum steering force
+    public float maxSpeed = 10;   // Maximum speed
     public bool inEffect = true;
 
     Vector3 finalForce;
     public Transform target;
+    float pnx, pny;
 
     private void Awake()
     {
+        pnx = Random.Range(0, 10f);
+        pny = Random.Range(0f, 10f);
         finalForce = Vector3.zero;
+        rb = gameObject.AddComponent<Rigidbody>();
     }
+
     void Start()
     {
-        rb = gameObject.AddComponent<Rigidbody>();
         rb.velocity = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
+        sepWeight += Random.Range(-0.2f, 0.2f);
+        aliWeight += Random.Range(-0.2f, 0.2f);
+        cohWeight += Random.Range(-0.2f, 0.2f);
+        seekWeight += Random.Range(-0.2f, 0.2f);
     }
+
+    // void OnDrawGizmos()
+    // {
+    //     var nextPos = (transform.position + finalForce * 100);
+    //     Gizmos.DrawWireSphere(nextPos, 1);
+    //     Gizmos.DrawLine(transform.position, nextPos);
+    // }
 
 
     // We accumulate a new acceleration each time based on three rules
@@ -51,25 +67,32 @@ public class Boid : MonoBehaviour
         finalForce += coh;
         finalForce += seek;
 
+
+
+
     }
 
     private void Update()
     {
         if (!inEffect) return;
-        Flock(ThingGod.god.flock.Select(i => i.GetComponent<Boid>()).ToList());
+        finalForce = Vector3.zero;
+        var boidList = ThingGod.god.flock.Select(i => i.GetComponent<Boid>()).ToList();
+        Flock(boidList);
+
+
+        rb.velocity += (Mathf.PerlinNoise(pnx, pny) - 0.5f) * transform.forward;
+        pnx += 0.1f;
+        pny += 0.1f;
+
+
+
     }
 
-    // Method to update transform.position
+    // // Method to update transform.position
     void FixedUpdate()
     {
         if (!inEffect) return;
-
-        while (finalForce.sqrMagnitude > maxForceSq)
-        {
-            finalForce *= 0.95f;
-        }
-
-        rb.AddForce(finalForce * Time.fixedDeltaTime);
+        rb.AddForce(finalForce * Time.fixedDeltaTime, ForceMode.VelocityChange);
 
         float rotationSmoothSpeed = 3.14f / 2f;
         if (rb.velocity.normalized != Vector3.zero)
@@ -91,6 +114,10 @@ public class Boid : MonoBehaviour
         desired *= maxSpeed;
         // Steering = Desired minus Velocity
         Vector3 steer = desired - rb.velocity;
+        while (steer.sqrMagnitude > maxForceSq)
+        {
+            steer *= 0.95f;
+        }
         return steer;
     }
 
@@ -130,6 +157,10 @@ public class Boid : MonoBehaviour
             steer.Normalize();
             steer *= maxSpeed;
             steer -= rb.velocity;
+            while (steer.sqrMagnitude > maxForceSq)
+            {
+                steer *= 0.95f;
+            }
         }
         return steer;
     }
@@ -158,7 +189,10 @@ public class Boid : MonoBehaviour
             sum.Normalize();
             sum *= maxSpeed;
             Vector3 steer = sum - rb.velocity;
-
+            while (steer.sqrMagnitude > maxForceSq)
+            {
+                steer *= 0.95f;
+            }
             return steer;
         }
         else

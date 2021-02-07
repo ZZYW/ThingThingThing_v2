@@ -16,6 +16,8 @@ public class ThingGod : MonoBehaviour
     public Transform[] monoliths;
     public ParticleSystem ps;
 
+    public GameObject agent;
+
     void Awake()
     {
         god = this;
@@ -96,8 +98,7 @@ public class ThingGod : MonoBehaviour
     {
         for (int i = 0; i < thingCount; i++)
         {
-            var newOne = GameObject.CreatePrimitive(PrimitiveType.Cube).AddComponent<Thing>();
-            newOne.transform.position = SpawnPos();
+            var newOne = GameObject.Instantiate(agent, SpawnPos(), Quaternion.identity).AddComponent<Thing>();
             if (NewThingBorn != null) NewThingBorn(newOne);
         }
     }
@@ -120,6 +121,16 @@ public class ThingGod : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        foreach (var thing in things)
+        {
+            if ((thing.transform.position - Vector3.zero).sqrMagnitude > 9999)
+            {
+                var rb = thing.GetComponent<Rigidbody>();
+                var delta = rb.position - Vector3.zero;
 
+                rb.position = Vector3.zero;
+                rb.velocity = Random.insideUnitSphere * 5;
+            }
+        }
     }
 }
