@@ -15,8 +15,9 @@ public class ThingGod : MonoBehaviour
     public int thingCount = 40;
     public Transform[] monoliths;
     public ParticleSystem ps;
-
     public GameObject agent;
+
+    int burstParticleCount = 30;
 
     void Awake()
     {
@@ -36,20 +37,47 @@ public class ThingGod : MonoBehaviour
     {
         things.Add(t);
         flock.Add(t);
+        FireBornParticle(t.transform.position);
     }
 
-    ParticleSystem.EmitParams DeathParas(Vector3 pos)
+
+    ParticleSystem.EmitParams EffectParticleParas(Color c)
     {
         var emitParas = new ParticleSystem.EmitParams();
-        emitParas.position = pos;
-        emitParas.startColor = Color.red;
+        emitParas.startColor = c;
         return emitParas;
     }
 
-    public IEnumerator DestroyThing(Thing t)
+    public void FireEraseParticle(Vector3 pos)
+    {
+        ps.transform.position = pos;
+        ps.Emit(EffectParticleParas(Color.red), burstParticleCount);
+    }
+
+    public void FireStealParticle(Vector3 pos)
+    {
+        ps.transform.position = pos;
+        ps.Emit(EffectParticleParas(Color.black), burstParticleCount);
+    }
+
+    public void FireGiftingParticle(Vector3 pos)
+    {
+        ps.transform.position = pos;
+        ps.Emit(EffectParticleParas(Color.green), burstParticleCount);
+    }
+
+    public void FireBornParticle(Vector3 pos)
+    {
+        ps.transform.position = pos;
+        ps.Emit(EffectParticleParas(Color.white), burstParticleCount);
+    }
+
+    
+
+    public IEnumerator EraseThingEnum(Thing t)
     {
         t.gameObject.SetActive(false);
-        ps.Emit(DeathParas(t.transform.position), 10);
+        FireEraseParticle(t.transform.position);
         t.dead = true;
         yield return new WaitForSeconds(10);
         //respawn
@@ -58,14 +86,15 @@ public class ThingGod : MonoBehaviour
         t.gameObject.transform.position = SpawnPos();
         t.gameObject.transform.Translate(Vector3.up);
         t.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero - t.transform.position;
-        t.dead = false;
+        t.ResetFlags();
     }
 
     public void CloneThing(Thing template, Vector3 pos, Vector3 scale)
     {
-        var newOne = GameObject.Instantiate(template, pos, Quaternion.identity);
+        var newOne = GameObject.Instantiate(template.gameObject, pos, Quaternion.identity);
         newOne.transform.localScale = scale;
-        if (NewThingBorn != null) NewThingBorn(newOne);
+        newOne.GetComponent<Thing>().ResetFlags();
+        if (NewThingBorn != null) NewThingBorn(newOne.GetComponent<Thing>());
     }
 
     public void AddToFlock(Thing t)

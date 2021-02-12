@@ -40,24 +40,24 @@ public class TestingGod : MonoBehaviour
     }
 
     [Button]
-    public void TestKill()
+    public void TestErase()
     {
         var a = GetRandomThing();
         var b = GetClosestThing(a);
         if (b != null)
         {
-            a.Kill(b);
+            a.Erase(b);
         }
     }
 
     [Button]
-    public void TestMate()
+    public void TestClone()
     {
         var a = GetRandomThing();
         var b = GetClosestThing(a);
         if (b != null)
         {
-            a.Mate(b);
+            a.Clone(b);
         }
     }
 

@@ -23,19 +23,40 @@ public class Boid : MonoBehaviour
 
     private void Awake()
     {
+
+    }
+
+    void OnEnable()
+    {
         pnx = Random.Range(0, 10f);
         pny = Random.Range(0f, 10f);
         finalForce = Vector3.zero;
-        rb = gameObject.AddComponent<Rigidbody>();
+        rb = gameObject.GetComponent<Rigidbody>();
+        if (rb == null) rb = gameObject.AddComponent<Rigidbody>();
+
+        rb.useGravity = false;
+
+        InitParas();
     }
 
-    void Start()
+    public void InitParas()
     {
-        rb.velocity = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
+        //default
+        sepWeight = 1;
+        aliWeight = 1;
+        cohWeight = 1;
+        seekWeight = 1;
+        repellerWeight = 1;
+        maxForceSq = 100;
+        maxSpeed = 10;
+        inEffect = true;
         sepWeight += Random.Range(-0.2f, 0.2f);
         aliWeight += Random.Range(-0.2f, 0.2f);
         cohWeight += Random.Range(-0.2f, 0.2f);
         seekWeight += Random.Range(-0.2f, 0.2f);
+        maxSpeed += Random.Range(-4f, 4f);
+        maxForceSq += Random.Range(-20f, 20f);
+        rb.velocity = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
     }
 
     // void OnDrawGizmos()
@@ -80,9 +101,9 @@ public class Boid : MonoBehaviour
         Flock(boidList);
 
 
-        rb.velocity += (Mathf.PerlinNoise(pnx, pny) - 0.5f) * transform.forward;
-        pnx += 0.1f;
-        pny += 0.1f;
+        // rb.velocity += (Mathf.PerlinNoise(pnx, pny) - 0.5f) * transform.forward;
+        // pnx += 0.1f;
+        // pny += 0.1f;
 
 
 
@@ -94,7 +115,7 @@ public class Boid : MonoBehaviour
         if (!inEffect) return;
         rb.AddForce(finalForce * Time.fixedDeltaTime, ForceMode.VelocityChange);
 
-        float rotationSmoothSpeed = 3.14f / 2f;
+        float rotationSmoothSpeed = 10;
         if (rb.velocity.normalized != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(rb.velocity.normalized);
