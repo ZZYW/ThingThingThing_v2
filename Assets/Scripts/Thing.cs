@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 
 public class Thing : MonoBehaviour
 {
 
     //user input
     //will be filled with json data
-    string[] intervalActions;
-    string[] touchActions;
+    string[] intervalActions = new string[] { };
+    string[] touchActions = new string[] { };
     //
     public float Tuli;
-    Boid boid;
+    public Boid boid;
 
     bool _attached;
     public bool attached
@@ -101,7 +102,7 @@ public class Thing : MonoBehaviour
     public void Clone(Thing another)
     {
         Debug.Log(name + " mate " + another.name);
-        ThingGod.god.CloneThing(another, transform.position, another.transform.localScale);
+        ThingGod.god.CloneThing(another, transform.position, another.transform.localScale * 0.9f);
         //Mate, give birth to a baby that resembles other thing;
     }
 
@@ -148,15 +149,10 @@ public class Thing : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        boid = gameObject.AddComponent<Boid>();
-        var meetDetector = gameObject.AddComponent<SphereCollider>();
-        meetDetector.isTrigger = true;
-        meetDetector.radius = 1;
-
-        InvokeRepeating("IntervalBasedActions", 5, 5);
+        boid = GetComponent<Boid>();
+        if (boid == null) boid = gameObject.AddComponent<Boid>();
+        StartCoroutine(IntervalBasedActions());
     }
-
 
     IEnumerator IntervalBasedActions()
     {
@@ -173,15 +169,6 @@ public class Thing : MonoBehaviour
         }
     }
 
-//TODO: pass action to that Thing I touched
-    void OnTouch()
-    {
-        foreach (var func in touchActions)
-        {
-            Invoke(func, 0);
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -190,10 +177,14 @@ public class Thing : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        //TODO
-        // foreach (ContactPoint contact in collision.contacts)
-        // {
-        //     Debug.DrawRay(contact.point, contact.normal, Color.white);
-        // }
+        if (collision.gameObject.GetComponent<Thing>())
+        {
+            Thing other = collision.gameObject.GetComponent<Thing>();
+            foreach (var func in touchActions)
+            {
+                MethodInfo mi = this.GetType().GetMethod(func);
+                mi.Invoke(this, new object[] { other });
+            }
+        }
     }
 }

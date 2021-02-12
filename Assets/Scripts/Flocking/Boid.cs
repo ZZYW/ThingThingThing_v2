@@ -17,26 +17,16 @@ public class Boid : MonoBehaviour
     public float maxSpeed = 10;   // Maximum speed
     public bool inEffect = true;
 
-    Vector3 finalForce;
+    Vector3 finalForce = Vector3.zero;
     public Transform target;
-    float pnx, pny;
+
+    bool initialized;
 
     private void Awake()
     {
-
-    }
-
-    void OnEnable()
-    {
-        pnx = Random.Range(0, 10f);
-        pny = Random.Range(0f, 10f);
-        finalForce = Vector3.zero;
         rb = gameObject.GetComponent<Rigidbody>();
         if (rb == null) rb = gameObject.AddComponent<Rigidbody>();
-
-        rb.useGravity = false;
-
-        InitParas();
+        if (!initialized) InitParas();
     }
 
     public void InitParas()
@@ -49,7 +39,6 @@ public class Boid : MonoBehaviour
         repellerWeight = 1;
         maxForceSq = 100;
         maxSpeed = 10;
-        inEffect = true;
         sepWeight += Random.Range(-0.2f, 0.2f);
         aliWeight += Random.Range(-0.2f, 0.2f);
         cohWeight += Random.Range(-0.2f, 0.2f);
@@ -57,6 +46,8 @@ public class Boid : MonoBehaviour
         maxSpeed += Random.Range(-4f, 4f);
         maxForceSq += Random.Range(-20f, 20f);
         rb.velocity = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
+        rb.useGravity = false;
+        initialized = true;
     }
 
     // void OnDrawGizmos()
@@ -96,17 +87,10 @@ public class Boid : MonoBehaviour
     private void Update()
     {
         if (!inEffect) return;
+        //reset finalforce
         finalForce = Vector3.zero;
         var boidList = ThingGod.god.flock.Select(i => i.GetComponent<Boid>()).ToList();
         Flock(boidList);
-
-
-        // rb.velocity += (Mathf.PerlinNoise(pnx, pny) - 0.5f) * transform.forward;
-        // pnx += 0.1f;
-        // pny += 0.1f;
-
-
-
     }
 
     // // Method to update transform.position

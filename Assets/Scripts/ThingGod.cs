@@ -17,6 +17,8 @@ public class ThingGod : MonoBehaviour
     public ParticleSystem ps;
     public GameObject agent;
 
+    public TextAsset thingSettings;
+
     int burstParticleCount = 30;
 
     void Awake()
@@ -72,7 +74,7 @@ public class ThingGod : MonoBehaviour
         ps.Emit(EffectParticleParas(Color.white), burstParticleCount);
     }
 
-    
+
 
     public IEnumerator EraseThingEnum(Thing t)
     {
@@ -91,10 +93,13 @@ public class ThingGod : MonoBehaviour
 
     public void CloneThing(Thing template, Vector3 pos, Vector3 scale)
     {
+        Debug.Log("original has coh weight ->" + template.boid.cohWeight);
         var newOne = GameObject.Instantiate(template.gameObject, pos, Quaternion.identity);
         newOne.transform.localScale = scale;
         newOne.GetComponent<Thing>().ResetFlags();
         if (NewThingBorn != null) NewThingBorn(newOne.GetComponent<Thing>());
+
+        Debug.Log("clone has coh weight ->" + newOne.GetComponent<Thing>().boid.cohWeight);
     }
 
     public void AddToFlock(Thing t)
@@ -125,6 +130,7 @@ public class ThingGod : MonoBehaviour
 
     void InitAllThings()
     {
+        
         for (int i = 0; i < thingCount; i++)
         {
             var newOne = GameObject.Instantiate(agent, SpawnPos(), Quaternion.identity).AddComponent<Thing>();

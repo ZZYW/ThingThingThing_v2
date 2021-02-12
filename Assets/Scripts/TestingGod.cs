@@ -52,7 +52,7 @@ public class TestingGod : MonoBehaviour
 
     [Button]
     public void TestClone()
-    {
+    {        
         var a = GetRandomThing();
         var b = GetClosestThing(a);
         if (b != null)
