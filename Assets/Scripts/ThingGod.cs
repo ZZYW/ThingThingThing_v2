@@ -17,7 +17,7 @@ public class ThingGod : MonoBehaviour
     public ParticleSystem ps;
     public GameObject agent;
 
-    public TextAsset thingSettings;
+
 
     int burstParticleCount = 30;
 
@@ -128,12 +128,14 @@ public class ThingGod : MonoBehaviour
 
     }
 
-    void InitAllThings()
+    public void CreateThings(ThingDataManager.ThingsSettings settings)
     {
-        
-        for (int i = 0; i < thingCount; i++)
+        foreach (var setting in settings.things)
         {
             var newOne = GameObject.Instantiate(agent, SpawnPos(), Quaternion.identity).AddComponent<Thing>();
+            newOne.intervalActions = new string[] { setting.intervalAction };
+            newOne.touchActions = new string[] { setting.touchAction };
+            newOne.name = setting.name;
             if (NewThingBorn != null) NewThingBorn(newOne);
         }
     }
@@ -150,7 +152,7 @@ public class ThingGod : MonoBehaviour
         {
             if (NewThingBorn != null) NewThingBorn(newOne);
         }
-        InitAllThings();
+
     }
 
     // Update is called once per frame

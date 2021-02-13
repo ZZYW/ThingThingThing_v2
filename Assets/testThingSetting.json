@@ -1,4 +1,14 @@
 {
-  "intervalEvent":["Group"],
-  "touchEvent":["Clone"]
+    "things": [
+        {
+            "name": "heyo",
+            "intervalAction": "Group",
+            "touchAction": "Clone"
+        },
+        {
+            "name": "!!",
+            "intervalAction": "Hide",
+            "touchAction": "Erase"
+        }
+    ]
 }

@@ -8,8 +8,8 @@ public class Thing : MonoBehaviour
 
     //user input
     //will be filled with json data
-    string[] intervalActions = new string[] { };
-    string[] touchActions = new string[] { };
+    public string[] intervalActions = new string[] { };
+    public string[] touchActions = new string[] { };
     //
     public float Tuli;
     public Boid boid;
@@ -173,6 +173,8 @@ public class Thing : MonoBehaviour
     void Update()
     {
         boid.inEffect = !attached;
+
+        
     }
 
     void OnCollisionEnter(Collision collision)
