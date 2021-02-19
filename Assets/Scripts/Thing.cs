@@ -55,6 +55,8 @@ public class Thing : MonoBehaviour
         }
     }
 
+    public Dictionary<Thing, int> fRecord = new Dictionary<Thing, int>();
+
     public Bounds bounds
     {
         get { return GetComponent<Renderer>().bounds; }
@@ -174,7 +176,7 @@ public class Thing : MonoBehaviour
     {
         boid.inEffect = !attached;
 
-        
+
     }
 
     void OnCollisionEnter(Collision collision)
