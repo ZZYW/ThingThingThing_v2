@@ -55,6 +55,7 @@ public class Thing : MonoBehaviour
         }
     }
 
+
     public Dictionary<Thing, int> fRecord = new Dictionary<Thing, int>();
 
     public Bounds bounds
@@ -73,7 +74,8 @@ public class Thing : MonoBehaviour
         Debug.Log(name + " steal " + another.name);
         Tuli += another.Tuli;
         another.Tuli = 0;
-        ThingGod.god.FireStealParticle(transform.position);
+
+        if (ThingGod.StealEvent != null) ThingGod.StealEvent(this, another);
     }
 
     public void Gift(Thing another)
@@ -81,7 +83,7 @@ public class Thing : MonoBehaviour
         another.Tuli += Tuli;
         Tuli = 0;
         Debug.Log(name + " gift " + another.name);
-        ThingGod.god.FireGiftingParticle(transform.position);
+        if (ThingGod.GiftingEvent != null) ThingGod.GiftingEvent(this, another);
         //Gifting, voluntarily transform one’s own Tulis to others;
     }
 
@@ -95,7 +97,7 @@ public class Thing : MonoBehaviour
         var myJoint = gameObject.AddComponent<CharacterJoint>();
         //connect to rb
         myJoint.connectedBody = another.boid.rb;
-
+        if (ThingGod.StickEvent != null) ThingGod.StickEvent(this, another);
         Debug.Log("Sticking.");
         //release        
         Invoke("ReleaseSticking", 10);
@@ -105,15 +107,15 @@ public class Thing : MonoBehaviour
     {
         Debug.Log(name + " mate " + another.name);
         ThingGod.god.CloneThing(another, transform.position, another.transform.localScale * 0.9f);
+        if (ThingGod.CloneEvent != null) ThingGod.CloneEvent(this, another);
         //Mate, give birth to a baby that resembles other thing;
     }
 
     public void Erase(Thing another)
     {
         Debug.Log(name + " kill " + another.name);
-        StartCoroutine(ThingGod.god.EraseThingEnum(another));
-
-        //Kill, destroy other thing and force it to be reborn at the monolith;
+        ThingGod.god.TryErase(another);
+        if (ThingGod.EraseEvent != null) ThingGod.EraseEvent(this, another);
     }
 
     public void Group()
@@ -134,9 +136,9 @@ public class Thing : MonoBehaviour
     {
         //Aim, walk towards the direction of a shan, an er, a monolith, or the tuli mountain. 
         boid.target = another.transform;
+        if (ThingGod.SeekEvent != null) ThingGod.SeekEvent(this, another);
         Invoke("ReleaseTarget", 15f);
     }
-
 
     void ReleaseSticking()
     {
@@ -154,6 +156,10 @@ public class Thing : MonoBehaviour
         boid = GetComponent<Boid>();
         if (boid == null) boid = gameObject.AddComponent<Boid>();
         StartCoroutine(IntervalBasedActions());
+        var triggerSphere = GetComponent<SphereCollider>();
+        if (triggerSphere == null) triggerSphere = gameObject.AddComponent<SphereCollider>();
+        triggerSphere.isTrigger = true;
+        triggerSphere.radius = 4;
     }
 
     IEnumerator IntervalBasedActions()
@@ -191,4 +197,13 @@ public class Thing : MonoBehaviour
             }
         }
     }
+
+    // void OnTriggerEnter(Collider other)
+    // {
+    //     if (fRecord.ContainsKey(other.GetComponent<Thing>()))
+    //     {
+
+    //     }
+
+    // }
 }

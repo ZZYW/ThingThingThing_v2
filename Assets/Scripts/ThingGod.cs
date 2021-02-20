@@ -6,7 +6,8 @@ using System.Linq;
 public class ThingGod : MonoBehaviour
 {
     public static ThingGod god = null;
-    public static System.Action<Thing> NewThingBorn;
+    public static System.Action<Thing> ThingBornEvent;
+    public static System.Action<Thing, Thing> StealEvent, EraseEvent, CloneEvent, GiftingEvent, SeekEvent, StickEvent;
     [HideInInspector]
     public List<Thing> things = new List<Thing>();
     [HideInInspector]
@@ -18,7 +19,6 @@ public class ThingGod : MonoBehaviour
     public GameObject agent;
 
 
-
     int burstParticleCount = 30;
 
     void Awake()
@@ -28,19 +28,68 @@ public class ThingGod : MonoBehaviour
 
     void OnEnable()
     {
-        NewThingBorn += NewThingBornCallback;
+        ThingBornEvent += OnThingBorn;
+        StealEvent += OnSteal;
+        EraseEvent += OnErase;
+        CloneEvent += OnClone;
+        GiftingEvent += OnGifting;
+        SeekEvent += OnSeek;
+        StickEvent += OnStick;
     }
     void OnDisable()
     {
-        NewThingBorn -= NewThingBornCallback;
+        ThingBornEvent -= OnThingBorn;
+        StealEvent -= OnSteal;
+        EraseEvent -= OnErase;
+        CloneEvent -= OnClone;
+        GiftingEvent -= OnGifting;
+        SeekEvent -= OnSeek;
+        StickEvent -= OnStick;
     }
 
-    void NewThingBornCallback(Thing t)
+    /////////////////////////////////////////////////////////////////////////////////
+    //Callbacks
+
+    void OnSteal(Thing actor, Thing receiver)
+    {
+        FireStealParticle(actor.transform.position);
+        receiver.fRecord[actor] -= 1;
+    }
+
+    void OnErase(Thing actor, Thing receiver)
+    {
+        FireEraseParticle(actor.transform.position);
+        receiver.fRecord[actor] -= 2;
+    }
+    
+    void OnClone(Thing actor, Thing receiver)
+    {
+        receiver.fRecord[actor] += 2;
+    }
+
+    void OnGifting(Thing actor, Thing receiver)
+    {
+        FireGiftingParticle(actor.transform.position);
+        receiver.fRecord[actor] += 1;
+    }
+
+    void OnSeek(Thing actor, Thing receiver)
+    {
+
+    }
+    void OnStick(Thing actor, Thing receiver)
+    {
+
+    }
+
+    void OnThingBorn(Thing t)
     {
         things.Add(t);
         flock.Add(t);
         FireBornParticle(t.transform.position);
     }
+    /////////////////////////////////////////////////////////////////////////////////
+    //Particle stuff
 
 
     ParticleSystem.EmitParams EffectParticleParas(Color c)
@@ -74,21 +123,25 @@ public class ThingGod : MonoBehaviour
         ps.Emit(EffectParticleParas(Color.white), burstParticleCount);
     }
 
+    /////////////////////////////////////////////////////////////////////////////////
 
-
-    public IEnumerator EraseThingEnum(Thing t)
+    public IEnumerator EraseThingEnum(Thing receiver)
     {
-        t.gameObject.SetActive(false);
-        FireEraseParticle(t.transform.position);
-        t.dead = true;
+        receiver.gameObject.SetActive(false);
+        receiver.dead = true;
         yield return new WaitForSeconds(10);
         //respawn
-        t.Tuli = initialTuli;
-        t.gameObject.SetActive(true);
-        t.gameObject.transform.position = SpawnPos();
-        t.gameObject.transform.Translate(Vector3.up);
-        t.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero - t.transform.position;
-        t.ResetFlags();
+        receiver.Tuli = initialTuli;
+        receiver.gameObject.SetActive(true);
+        receiver.gameObject.transform.position = SpawnPos();
+        receiver.gameObject.transform.Translate(Vector3.up);
+        receiver.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero - receiver.transform.position;
+        receiver.ResetFlags();
+    }
+
+    internal void TryErase(Thing another)
+    {
+        StartCoroutine(EraseThingEnum(another));
     }
 
     public void CloneThing(Thing template, Vector3 pos, Vector3 scale)
@@ -97,7 +150,7 @@ public class ThingGod : MonoBehaviour
         var newOne = GameObject.Instantiate(template.gameObject, pos, Quaternion.identity);
         newOne.transform.localScale = scale;
         newOne.GetComponent<Thing>().ResetFlags();
-        if (NewThingBorn != null) NewThingBorn(newOne.GetComponent<Thing>());
+        if (ThingBornEvent != null) ThingBornEvent(newOne.GetComponent<Thing>());
 
         Debug.Log("clone has coh weight ->" + newOne.GetComponent<Thing>().boid.cohWeight);
     }
@@ -136,28 +189,28 @@ public class ThingGod : MonoBehaviour
             newOne.intervalActions = new string[] { setting.intervalAction };
             newOne.touchActions = new string[] { setting.touchAction };
             newOne.name = setting.name;
-            if (NewThingBorn != null) NewThingBorn(newOne);
+            if (ThingBornEvent != null) ThingBornEvent(newOne);
         }
     }
 
 
 
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    //MONOBEHAVIOUR
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
         foreach (var newOne in GameObject.FindObjectsOfType<Thing>())
         {
-            if (NewThingBorn != null) NewThingBorn(newOne);
+            if (ThingBornEvent != null) ThingBornEvent(newOne);
         }
 
     }
 
-    // Update is called once per frame
+
     void Update()
     {
+        //reset when it is out of bound
         foreach (var thing in things)
         {
             if ((thing.transform.position - Vector3.zero).sqrMagnitude > 9999)
