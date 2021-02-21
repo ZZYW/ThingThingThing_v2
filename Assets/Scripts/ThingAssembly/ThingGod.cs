@@ -14,12 +14,9 @@ namespace ThingSpace
         [HideInInspector]
         public List<Thing> flock = new List<Thing>();
         public int initialTuli = 10;
-        public int thingCount = 40;
         public Transform[] monoliths;
         public ParticleSystem ps;
-        public GameObject agent;
-
-
+ 
         int burstParticleCount = 30;
 
         void Awake()

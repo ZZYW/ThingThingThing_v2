@@ -6,7 +6,7 @@ namespace ThingSpace
         public override void Init()
         {
             motor.SetMass(1);
-            motor.SetMaxSpeed(1);
+            motor.SetMaxSpeed(3);
             motor.aliWeight = 1;
         }
 

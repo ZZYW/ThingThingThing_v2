@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace ThingSpace
 {
@@ -140,7 +141,9 @@ namespace ThingSpace
         }
 
         public void Clone(Thing another)
-        {
+        {            
+            var cloneLayer = Regex.Matches(another.gameObject.name, "(Clone)").Count;
+            if (cloneLayer > 6) return;
             Debug.Log(name + " mate " + another.name);
             ThingGod.god.CloneThing(another, transform.position, another.transform.localScale * 0.9f);
             if (ThingGod.CloneEvent != null) ThingGod.CloneEvent(this, another);
