@@ -39,6 +39,8 @@ public class ThingDataManager : MonoBehaviour
         public struct Thing
         {
             public string name;
+            public float mass;
+            public float maxSpeed;
             public string touchAction;
             public string intervalAction;
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-
+[RequireComponent(typeof(Rigidbody))]
 public class Boid : MonoBehaviour
 {
     public float sepWeight = 1;
@@ -11,7 +11,13 @@ public class Boid : MonoBehaviour
     public float cohWeight = 1;
     public float seekWeight = 1;
     public float repellerWeight = 1;
-    public Rigidbody rb;
+    public Rigidbody rb
+    {
+        get
+        {
+            return gameObject.GetComponent<Rigidbody>();
+        }
+    }
 
     public float maxForceSq = 100;    // Maximum steering force
     public float maxSpeed = 10;   // Maximum speed
@@ -24,11 +30,17 @@ public class Boid : MonoBehaviour
 
     private void Awake()
     {
-        rb = gameObject.GetComponent<Rigidbody>();
-        if (rb == null) rb = gameObject.AddComponent<Rigidbody>();
         if (!initialized) InitParas();
     }
 
+    public void SetMass(float m)
+    {
+        rb.mass = m;
+    }
+    public void SetMaxSpeed(float ms)
+    {
+        maxSpeed = ms;
+    }
     public void InitParas()
     {
         //default
@@ -38,7 +50,6 @@ public class Boid : MonoBehaviour
         seekWeight = 1;
         repellerWeight = 1;
         maxForceSq = 100;
-        maxSpeed = 10;
         sepWeight += Random.Range(-0.2f, 0.2f);
         aliWeight += Random.Range(-0.2f, 0.2f);
         cohWeight += Random.Range(-0.2f, 0.2f);

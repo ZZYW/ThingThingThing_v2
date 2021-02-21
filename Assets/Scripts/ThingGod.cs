@@ -53,24 +53,25 @@ public class ThingGod : MonoBehaviour
     void OnSteal(Thing actor, Thing receiver)
     {
         FireStealParticle(actor.transform.position);
-        receiver.fRecord[actor] -= 1;
+        receiver.DecreaseScore(1, actor);
+
     }
 
     void OnErase(Thing actor, Thing receiver)
     {
         FireEraseParticle(actor.transform.position);
-        receiver.fRecord[actor] -= 2;
+        receiver.DecreaseScore(2, actor);
     }
-    
+
     void OnClone(Thing actor, Thing receiver)
     {
-        receiver.fRecord[actor] += 2;
+        receiver.IncreaseScore(2, actor);
     }
 
     void OnGifting(Thing actor, Thing receiver)
     {
         FireGiftingParticle(actor.transform.position);
-        receiver.fRecord[actor] += 1;
+        receiver.IncreaseScore(1, actor);
     }
 
     void OnSeek(Thing actor, Thing receiver)
@@ -87,6 +88,8 @@ public class ThingGod : MonoBehaviour
         things.Add(t);
         flock.Add(t);
         FireBornParticle(t.transform.position);
+
+
     }
     /////////////////////////////////////////////////////////////////////////////////
     //Particle stuff
@@ -176,19 +179,18 @@ public class ThingGod : MonoBehaviour
         //   return monoliths[Random.Range(0, monoliths.Length)].transform.position;
     }
 
-    void MakeThing()
-    {
-
-    }
-
     public void CreateThings(ThingDataManager.ThingsSettings settings)
     {
         foreach (var setting in settings.things)
         {
             var newOne = GameObject.Instantiate(agent, SpawnPos(), Quaternion.identity).AddComponent<Thing>();
+            //apply settings
             newOne.intervalActions = new string[] { setting.intervalAction };
             newOne.touchActions = new string[] { setting.touchAction };
+            newOne.boid.SetMass(setting.mass);
+            newOne.boid.SetMaxSpeed(setting.maxSpeed);
             newOne.name = setting.name;
+            //...
             if (ThingBornEvent != null) ThingBornEvent(newOne);
         }
     }

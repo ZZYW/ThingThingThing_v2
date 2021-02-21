@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 
+[RequireComponent(typeof(Boid))]
 public class Thing : MonoBehaviour
 {
 
@@ -12,7 +13,10 @@ public class Thing : MonoBehaviour
     public string[] touchActions = new string[] { };
     //
     public float Tuli;
-    public Boid boid;
+    public Boid boid
+    {
+        get { return GetComponent<Boid>(); }
+    }
 
     bool _attached;
     public bool attached
@@ -62,6 +66,32 @@ public class Thing : MonoBehaviour
     {
         get { return GetComponent<Renderer>().bounds; }
     }
+
+
+    //MONOBEHAVIOUR///////////////////////////////////////
+    void Start()
+    {
+
+        /*
+        var triggerSphere = GetComponent<SphereCollider>();        
+        if (triggerSphere == null) triggerSphere = gameObject.AddComponent<SphereCollider>();
+        triggerSphere.isTrigger = true;
+        triggerSphere.radius = 4;
+        */
+
+
+        StartCoroutine(IntervalBasedActions());
+    }
+
+    void Update()
+    {
+        boid.inEffect = !attached;
+
+
+    }
+
+    //MONOBEHAVIOUR///////////////////////////////////////
+
 
     public void ResetFlags()
     {
@@ -118,14 +148,14 @@ public class Thing : MonoBehaviour
         if (ThingGod.EraseEvent != null) ThingGod.EraseEvent(this, another);
     }
 
-    public void Group()
+    public void Group(Thing another)
     {
         boid.cohWeight *= 3f;
         boid.aliWeight *= 3f;
         boid.seekWeight /= 3f;
     }
 
-    public void Hide()
+    public void Hide(Thing another)
     {
         boid.cohWeight /= 3f;
         boid.aliWeight /= 3f;
@@ -140,6 +170,29 @@ public class Thing : MonoBehaviour
         Invoke("ReleaseTarget", 15f);
     }
 
+    public void DecreaseScore(int n, Thing who)
+    {
+        if (fRecord.ContainsKey(who))
+        {
+            fRecord[who] -= n;
+        }
+        else
+        {
+            fRecord[who] = -n;
+        }
+    }
+    public void IncreaseScore(int n, Thing who)
+    {
+        if (fRecord.ContainsKey(who))
+        {
+            fRecord[who] += n;
+        }
+        else
+        {
+            fRecord[who] = n;
+        }
+    }
+
     void ReleaseSticking()
     {
         attached = false;
@@ -150,16 +203,18 @@ public class Thing : MonoBehaviour
         boid.target = null;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    Thing GetClosestThing(Thing center)
     {
-        boid = GetComponent<Boid>();
-        if (boid == null) boid = gameObject.AddComponent<Boid>();
-        StartCoroutine(IntervalBasedActions());
-        var triggerSphere = GetComponent<SphereCollider>();
-        if (triggerSphere == null) triggerSphere = gameObject.AddComponent<SphereCollider>();
-        triggerSphere.isTrigger = true;
-        triggerSphere.radius = 4;
+        foreach (var thing in ThingGod.god.things)
+        {
+            if (thing == center) continue;
+            if (Vector3.Distance(thing.transform.position, center.transform.position) < 10)
+            {
+                return thing;
+            }
+        }
+
+        return null;
     }
 
     IEnumerator IntervalBasedActions()
@@ -170,7 +225,10 @@ public class Thing : MonoBehaviour
             {
                 foreach (var func in intervalActions)
                 {
-                    Invoke(func, 0);
+                    if (string.IsNullOrWhiteSpace(func)) continue;
+                    Thing closestThing = GetClosestThing(this);
+                    MethodInfo mi = this.GetType().GetMethod(func);
+                    mi.Invoke(this, new object[] { closestThing });
                 }
             }
             yield return new WaitForSeconds(5);
@@ -178,12 +236,7 @@ public class Thing : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        boid.inEffect = !attached;
 
-
-    }
 
     void OnCollisionEnter(Collision collision)
     {
