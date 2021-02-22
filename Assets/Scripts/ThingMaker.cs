@@ -43,11 +43,11 @@ namespace ThingSpace
         {
             var type = domain.CompileAndLoadMainSource(code);
 
-            GameObject go = null;
+            GameObject go;
 
             if (useCubeAsMesh)
             {
-                go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             }
             else
             {
