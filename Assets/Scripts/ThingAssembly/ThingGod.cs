@@ -149,7 +149,7 @@ namespace ThingSpace
 
         public void CloneThing(Thing template, Vector3 pos, Vector3 scale)
         {
-            Debug.Log("original has coh weight ->" + template.motor.cohWeight);
+            // Debug.Log("original has coh weight ->" + template.motor.cohWeight);
             var newOne = GameObject.Instantiate(template.gameObject, pos, Quaternion.identity);
             newOne.transform.localScale = scale;
             newOne.GetComponent<Thing>().ResetFlags();
@@ -203,10 +203,6 @@ namespace ThingSpace
 
         void Start()
         {
-            foreach (var newOne in GameObject.FindObjectsOfType<Thing>())
-            {
-                if (ThingBornEvent != null) ThingBornEvent(newOne);
-            }
 
         }
 

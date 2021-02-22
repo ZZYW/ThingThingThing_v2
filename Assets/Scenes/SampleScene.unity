@@ -1187,7 +1187,7 @@ GameObject:
   - component: {fileID: 1110976140}
   - component: {fileID: 1110976139}
   m_Layer: 0
-  m_Name: Domain Creator
+  m_Name: Thing Maker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1202,17 +1202,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1110976138}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a6ba26ab4b99458cbc7910245748873, type: 3}
+  m_Script: {fileID: 11500000, guid: e71c1cea900fe4d5e808bb6a95053e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   assemblyReferences:
-  - {fileID: 11400000, guid: fe24fc97048e2974787cc8d5328fa171, type: 2}
-  - {fileID: 11400000, guid: eee75363a127d4e43acec7a183e8ba84, type: 2}
+  - {fileID: 11400000, guid: 268b3bc8c5ded422e82fdf0f6bfda713, type: 2}
   - {fileID: 11400000, guid: 3a471afdf33b8a24b842b92e9d7b3ee3, type: 2}
   - {fileID: 11400000, guid: a1c9628d65ee91440a328850888fb21e, type: 2}
   - {fileID: 11400000, guid: 93cd16b8945e2b74cb3101170cee91dd, type: 2}
-  - {fileID: 11400000, guid: 268b3bc8c5ded422e82fdf0f6bfda713, type: 2}
-  thingScriptDirectoryPath: Assets/Scripts/Things/
+  - {fileID: 11400000, guid: eee75363a127d4e43acec7a183e8ba84, type: 2}
+  - {fileID: 11400000, guid: fe24fc97048e2974787cc8d5328fa171, type: 2}
+  thingScriptDirectoryPath: Assets/Scripts/Things
+  spawnAreaRadius: 10
+  thingMat: {fileID: 2100000, guid: 7d846646bfb634bcaa5ba29d692d9451, type: 2}
   useCubeAsMesh: 1
 --- !u!4 &1110976140
 Transform:
@@ -1481,7 +1483,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0

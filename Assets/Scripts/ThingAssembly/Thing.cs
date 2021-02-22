@@ -106,6 +106,7 @@ namespace ThingSpace
 
         public void Steal(Thing another)
         {
+            if (another == null) return;
             Debug.Log(name + " steal " + another.name);
             Tuli += another.Tuli;
             another.Tuli = 0;
@@ -115,6 +116,7 @@ namespace ThingSpace
 
         public void Gift(Thing another)
         {
+            if (another == null) return;
             another.Tuli += Tuli;
             Tuli = 0;
             Debug.Log(name + " gift " + another.name);
@@ -124,6 +126,7 @@ namespace ThingSpace
 
         public void Stick(Thing another)
         {
+            if (another == null) return;
             Debug.Log(name + " stick " + another.name);
             //Follow, attach onto another thing for a limited period of time;
             transform.position = another.transform.position + another.transform.GetComponent<Collider>().bounds.extents.x * (transform.position - another.transform.position).normalized;
@@ -140,6 +143,7 @@ namespace ThingSpace
 
         public void Clone(Thing another)
         {
+            if (another == null) return;
             if (!CloneRegulator.instance.canClone) return;
             var cloneLayer = Regex.Matches(another.gameObject.name, "(Clone)").Count;
             if (cloneLayer > 5) return;
@@ -151,6 +155,7 @@ namespace ThingSpace
 
         public void Erase(Thing another)
         {
+            if (another == null) return;
             Debug.Log(name + " kill " + another.name);
             ThingGod.god.TryErase(another);
             if (ThingGod.EraseEvent != null) ThingGod.EraseEvent(this, another);
@@ -172,6 +177,7 @@ namespace ThingSpace
 
         public void Seek(Thing another)
         {
+            if (another == null) return;
             //Aim, walk towards the direction of a shan, an er, a monolith, or the tuli mountain. 
             motor.target = another.transform;
             if (ThingGod.SeekEvent != null) ThingGod.SeekEvent(this, another);
@@ -227,13 +233,16 @@ namespace ThingSpace
 
         IEnumerator IntervalBasedActions()
         {
+            yield return new WaitForSeconds(5);
             while (true)
             {
+
                 if (!dead && !attached)
                 {
                     IntervalAction(GetClosestThing(this));
+                    yield return new WaitForSeconds(5);
                 }
-                yield return new WaitForSeconds(5);
+
             }
         }
 

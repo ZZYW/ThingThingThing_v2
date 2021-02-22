@@ -12,6 +12,9 @@ namespace ThingSpace
         public AssemblyReferenceAsset[] assemblyReferences;
         public string thingScriptDirectoryPath;
 
+        public float spawnAreaRadius = 10;
+        public Material thingMat;
+
         public bool useCubeAsMesh;
 
         // Start is called before the first frame update
@@ -51,12 +54,16 @@ namespace ThingSpace
                 go = new GameObject();
             }
 
-
+            //create gameobject
             ScriptProxy proxy = type.CreateInstance(go);
             var newThing = go.GetComponent<Thing>();
             go.name = newThing.GetType().Name;
 
+            //reset new thing's position
+            go.transform.position = Random.insideUnitSphere * spawnAreaRadius;
 
+            //custom new thing's look
+            go.GetComponent<Renderer>().material = thingMat;
 
             if (ThingGod.ThingBornEvent != null) ThingGod.ThingBornEvent(newThing);
             return newThing;

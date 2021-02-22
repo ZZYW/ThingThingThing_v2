@@ -35,6 +35,7 @@ MonoBehaviour:
   - {fileID: 6144103309229682686}
   - {fileID: 4883654035868509959}
   - {fileID: -6477645133687422984}
+  - {fileID: 6745863907189707160}
 --- !u!114 &4883654035868509959
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -102,20 +103,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
   m_Name: Vignette
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   color:
-    m_OverrideState: 0
-    m_Value: {r: 0, g: 0, b: 0, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0.59395933, b: 1, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
   center:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.5}
   intensity:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 0.355
     min: 0
     max: 1
   smoothness:
