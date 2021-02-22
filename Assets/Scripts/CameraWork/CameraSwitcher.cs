@@ -19,7 +19,7 @@ namespace ThingSpace
         [SerializeField] GameObject mainCam;
         [SerializeField] GameObject followCam;
 
-        List<GameObject> allThings;
+        List<Thing> allThings;
         bool useMain = false;
         CameraFollowThing cameraFollowThing;
 
@@ -38,7 +38,7 @@ namespace ThingSpace
         {
             cameraFollowThing = followCam.GetComponent<CameraFollowThing>();
 
-            allThings = thin.main.AllThings;
+            allThings = ThingGod.god.things;
 
             if (allThings.Count < 1) return;
             AssignFollowTarget();
@@ -65,7 +65,7 @@ namespace ThingSpace
 
         void AssignFollowTarget()
         {
-            GameObject oneRandomThing = allThings[(int)Random.Range(0, allThings.Count)];
+            GameObject oneRandomThing = allThings[(int)Random.Range(0, allThings.Count)].gameObject;
             cameraFollowThing.followTarget = oneRandomThing.transform;
 
             // float desiredFollowDistance = 1;
