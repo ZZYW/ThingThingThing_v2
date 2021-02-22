@@ -12,20 +12,15 @@ namespace ThingSpace
 
         public override void IntervalAction(Thing closestThing)
         {
-            // Clone(closestThing);
-            // Erase(closestThing);
-            // Steal(closestThing);
-            // Gift(closestThing);
+            Clone(closestThing);
         }
 
         public override void OnTouch(Thing other)
         {
 
-            //examples
-            if (other.Tuli > 10)
-            {
-                Erase(other);
-            }
+
+            // Erase(other);
+
 
             if (other.Tuli <= 0)
             {

@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace ThingSpace
 {
-    [RequireComponent(typeof(Boid))]
+    [RequireComponent(typeof(Boid))]    
     public abstract class Thing : MonoBehaviour
     {
 
@@ -70,6 +70,7 @@ namespace ThingSpace
             get { return GetComponent<Renderer>().bounds; }
         }
 
+        int cloneTimestamp = 100;
 
         //MONOBEHAVIOUR///////////////////////////////////////
         void Start()
@@ -93,8 +94,6 @@ namespace ThingSpace
         void Update()
         {
             motor.inEffect = !attached;
-
-
         }
 
         //MONOBEHAVIOUR///////////////////////////////////////
@@ -141,9 +140,12 @@ namespace ThingSpace
         }
 
         public void Clone(Thing another)
-        {            
+        {
+            if (!CloneRegulator.instance.canClone) return;
             var cloneLayer = Regex.Matches(another.gameObject.name, "(Clone)").Count;
-            if (cloneLayer > 6) return;
+            if (cloneLayer > 5) return;
+            cloneTimestamp = Time.frameCount;
+
             Debug.Log(name + " mate " + another.name);
             ThingGod.god.CloneThing(another, transform.position, another.transform.localScale * 0.9f);
             if (ThingGod.CloneEvent != null) ThingGod.CloneEvent(this, another);

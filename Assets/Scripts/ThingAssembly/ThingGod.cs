@@ -16,7 +16,7 @@ namespace ThingSpace
         public int initialTuli = 10;
         public Transform[] monoliths;
         public ParticleSystem ps;
- 
+
         int burstParticleCount = 30;
 
         void Awake()
@@ -63,6 +63,7 @@ namespace ThingSpace
 
         void OnClone(Thing actor, Thing receiver)
         {
+            CloneRegulator.instance.Cloned();
             receiver.IncreaseScore(2, actor);
         }
 
