@@ -54,7 +54,7 @@ namespace ThingSpace
             maxSpeed += Random.Range(-4f, 4f);
             maxForceSq += Random.Range(-20f, 20f);
             rb.velocity = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
-            rb.useGravity = false;
+            rb.useGravity = true;
             initialized = true;
         }
 
@@ -107,13 +107,13 @@ namespace ThingSpace
             if (!inEffect) return;
             rb.AddForce(finalForce * Time.fixedDeltaTime, ForceMode.VelocityChange);
 
-            float rotationSmoothSpeed = 10;
-            if (rb.velocity.normalized != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(rb.velocity.normalized);
-                Quaternion newRotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * rotationSmoothSpeed);
-                rb.rotation = newRotation;
-            }
+            // float rotationSmoothSpeed = 10;
+            // if (rb.velocity.normalized != Vector3.zero)
+            // {
+            //     Quaternion targetRotation = Quaternion.LookRotation(rb.velocity.normalized);
+            //     Quaternion newRotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * rotationSmoothSpeed);
+            //     rb.rotation = newRotation;
+            // }
         }
 
 

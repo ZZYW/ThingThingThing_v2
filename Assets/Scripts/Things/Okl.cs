@@ -8,6 +8,7 @@ namespace ThingSpace
             motor.SetMass(1);
             motor.SetMaxSpeed(1);
             motor.aliWeight = 1;
+            color = new Color(0,0.2f,0.4f);
         }
 
         public override void IntervalAction(Thing closestThing)

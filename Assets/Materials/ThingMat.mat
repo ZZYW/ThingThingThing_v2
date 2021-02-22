@@ -118,7 +118,7 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _TimeScale: 0.53
-    - _UVMultiplier: 0.47
+    - _UVMultiplier: 2
     - _VertexAnimation: 1
     - _VertexDisNoiseScale: 2.28
     - _WorkflowMode: 0
@@ -132,5 +132,5 @@ Material:
     - _ColorB2: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
-    - _VertexDisScale: {r: 1, g: 1, b: 1, a: 0}
+    - _VertexDisScale: {r: 0.2, g: 0.2, b: 0.2, a: 0}
   m_BuildTextureStacks: []

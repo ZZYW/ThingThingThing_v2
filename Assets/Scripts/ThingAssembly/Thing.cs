@@ -7,6 +7,9 @@ using System.Text.RegularExpressions;
 namespace ThingSpace
 {
     [RequireComponent(typeof(Boid))]
+    [RequireComponent(typeof(MeshRenderer))]
+    [RequireComponent(typeof(MeshFilter))]
+    [RequireComponent(typeof(MeshCollider))]
     public abstract class Thing : MonoBehaviour
     {
 
@@ -16,6 +19,9 @@ namespace ThingSpace
         public string[] touchActions = new string[] { };
         //
         public float Tuli;
+        public int meshIndex;
+        public Color color;
+        Color accentColor;
         public Boid motor
         {
             get { return GetComponent<Boid>(); }
@@ -74,7 +80,32 @@ namespace ThingSpace
         //MONOBEHAVIOUR///////////////////////////////////////
         void Start()
         {
+            Init();
 
+
+            //test
+
+            if (GetComponent<MeshFilter>().sharedMesh == null)
+            {
+                meshIndex = (int)(Random.value * ThingGod.god.availableModels.Count);
+
+                var mesh = ThingGod.god.availableModels[meshIndex].GetComponentInChildren<MeshFilter>().sharedMesh;
+                GetComponent<MeshFilter>().mesh = mesh;
+                GetComponent<MeshRenderer>().material = ThingGod.god.thingMat;
+                var myMat = GetComponent<MeshRenderer>().material;
+                //calculate accent color
+                float h, s, v;
+                Color.RGBToHSV(color, out h, out s, out v);
+                accentColor = Color.HSVToRGB((((h * 360) + 180f) % 360) / 360f, Mathf.Clamp01(s / 2f), Mathf.Clamp01(v / 2f));
+                //set color
+                myMat.SetColor("_ColorA1", color);
+                myMat.SetColor("_ColorA2", accentColor);
+
+                //collider
+                var collider = GetComponent<MeshCollider>();
+                collider.sharedMesh = mesh;
+                collider.convex = true;
+            }
 
             //TODO: select geometry        
 
@@ -86,7 +117,7 @@ namespace ThingSpace
             triggerSphere.radius = 4;
             */
 
-            Init();
+
             StartCoroutine(IntervalBasedActions());
         }
 

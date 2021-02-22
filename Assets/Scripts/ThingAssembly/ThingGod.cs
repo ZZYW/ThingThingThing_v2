@@ -19,9 +19,13 @@ namespace ThingSpace
 
         int burstParticleCount = 30;
 
+        public List<GameObject> availableModels = new List<GameObject>();
+        public Material thingMat;
+
         void Awake()
         {
             god = this;
+            availableModels.RemoveAll(i => i == null);
         }
 
         void OnEnable()

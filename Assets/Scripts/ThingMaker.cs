@@ -13,7 +13,7 @@ namespace ThingSpace
         public string thingScriptDirectoryPath;
 
         public float spawnAreaRadius = 10;
-        public Material thingMat;
+       
 
         public bool useCubeAsMesh;
 
@@ -61,9 +61,7 @@ namespace ThingSpace
 
             //reset new thing's position
             go.transform.position = Random.insideUnitSphere * spawnAreaRadius;
-
-            //custom new thing's look
-            go.GetComponent<Renderer>().material = thingMat;
+                   
 
             if (ThingGod.ThingBornEvent != null) ThingGod.ThingBornEvent(newThing);
             return newThing;

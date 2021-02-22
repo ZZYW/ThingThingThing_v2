@@ -25,8 +25,8 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubtractiveShadowColor: {r: 1, g: 1, b: 1, a: 1}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 3953cf6db3a29459a90cc90efc3f7ff7, type: 2}
   m_HaloStrength: 0.491
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0.99999946, b: 0.99999946, a: 1}
+  m_IndirectSpecularColor: {r: 0.8767201, g: 1.0651462, b: 0.8295393, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -161,6 +161,28 @@ MonoBehaviour:
   - {fileID: 476830064}
   - {fileID: 1459263217}
   ps: {fileID: 1523073302}
+  availableModels:
+  - {fileID: 5578347496039030709, guid: 7e1c9903a267a4a039c0f2e00314a25d, type: 3}
+  - {fileID: 7171117146072542402, guid: 9e06957bc46884328a9f73b01df2c69f, type: 3}
+  - {fileID: 4960582748219231842, guid: 1e3d6395af18b4f2b8264b7c47cb616f, type: 3}
+  - {fileID: 2073618278801115200, guid: 7f314db47db254ac6916de6ea1bbeb0b, type: 3}
+  - {fileID: 86550099290144484, guid: 3754becf7690c4806823bec14c45d04b, type: 3}
+  - {fileID: 3363072158117563786, guid: 0cfda1a78db13402caef83d1722cb119, type: 3}
+  - {fileID: 1595292453455539135, guid: cc74a5757c48d44a5958d3fe7382ed95, type: 3}
+  - {fileID: 8472852982792315913, guid: 965219f94905f4531b46bae541091130, type: 3}
+  - {fileID: 484914081309280088, guid: 3f3ab3a5c8b69408ca8500e21a3d2b9f, type: 3}
+  - {fileID: 5353784573941192504, guid: ca1f2134182bf4af1b500bd7094b2367, type: 3}
+  - {fileID: 6928409701840921824, guid: d15c82864b2a94843bd19d7d3f7ae43b, type: 3}
+  - {fileID: 5423850047374822189, guid: 609521b24d7644078bf6bb08d5b9417c, type: 3}
+  - {fileID: 7643704115334097079, guid: 2ba2588a3754a4317b54c5447c1dfaae, type: 3}
+  - {fileID: 2966971737999840532, guid: 4d58bad7c50844682aa190f62d96fa35, type: 3}
+  - {fileID: 100000, guid: bd9b79329ba9dda488da003696edc754, type: 3}
+  - {fileID: 100000, guid: e4b66841754e4ed438f2b3bc5e615425, type: 3}
+  - {fileID: 100000, guid: 644255a0198675a44828611a93cd87d9, type: 3}
+  - {fileID: 391373880043853999, guid: 2578e6291eb924265adec6f81328d42a, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  thingMat: {fileID: 2100000, guid: 7d846646bfb634bcaa5ba29d692d9451, type: 2}
 --- !u!4 &175367765
 Transform:
   m_ObjectHideFlags: 0
@@ -271,6 +293,102 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 290149750}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &311556539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 311556543}
+  - component: {fileID: 311556542}
+  - component: {fileID: 311556541}
+  - component: {fileID: 311556540}
+  m_Layer: 0
+  m_Name: Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!64 &311556540
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311556539}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &311556541
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311556539}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 82575805937814ba2931d5b703a2946c, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &311556542
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311556539}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &311556543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311556539}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -6.88, z: 0}
+  m_LocalScale: {x: 100, y: 1, z: 100}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &476830063
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,8 +1255,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.32328534, y: 0.18955582, z: -0.06626516, w: 0.9247508}
-  m_LocalPosition: {x: -20.030722, y: 41.305542, z: -52.10098}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1213,9 +1331,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: eee75363a127d4e43acec7a183e8ba84, type: 2}
   - {fileID: 11400000, guid: fe24fc97048e2974787cc8d5328fa171, type: 2}
   thingScriptDirectoryPath: Assets/Scripts/Things
-  spawnAreaRadius: 10
-  thingMat: {fileID: 2100000, guid: 7d846646bfb634bcaa5ba29d692d9451, type: 2}
-  useCubeAsMesh: 1
+  spawnAreaRadius: 3
+  useCubeAsMesh: 0
 --- !u!4 &1110976140
 Transform:
   m_ObjectHideFlags: 0

@@ -5,9 +5,10 @@ namespace ThingSpace
     {
         public override void Init()
         {
-            motor.SetMass(1);
+            motor.SetMass(0.2f);
             motor.SetMaxSpeed(3);
             motor.aliWeight = 1;
+            color = new Color(0.1f, 1, 1);
         }
 
         public override void IntervalAction(Thing closestThing)
