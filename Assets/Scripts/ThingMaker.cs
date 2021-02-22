@@ -6,7 +6,7 @@ using System.IO;
 
 namespace ThingSpace
 {
-    public class CreateDomain : MonoBehaviour
+    public class ThingMaker : MonoBehaviour
     {
         private ScriptDomain domain = null;
         public AssemblyReferenceAsset[] assemblyReferences;
@@ -55,6 +55,9 @@ namespace ThingSpace
             ScriptProxy proxy = type.CreateInstance(go);
             var newThing = go.GetComponent<Thing>();
             go.name = newThing.GetType().Name;
+
+
+
             if (ThingGod.ThingBornEvent != null) ThingGod.ThingBornEvent(newThing);
             return newThing;
         }
