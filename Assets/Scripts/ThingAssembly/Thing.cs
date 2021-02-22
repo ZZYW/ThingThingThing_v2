@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using UltimateGameTools.MeshSimplifier;
 
 namespace ThingSpace
 {
@@ -10,6 +11,7 @@ namespace ThingSpace
     [RequireComponent(typeof(MeshRenderer))]
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(MeshCollider))]
+    [RequireComponent(typeof(RuntimeMeshSimplifier))]
     public abstract class Thing : MonoBehaviour
     {
 
@@ -17,8 +19,7 @@ namespace ThingSpace
         //will be filled with json data
         public string[] intervalActions = new string[] { };
         public string[] touchActions = new string[] { };
-        //
-        public float Tuli;
+        //        
         public int meshIndex;
         public Color color;
         Color accentColor;
@@ -139,8 +140,8 @@ namespace ThingSpace
         {
             if (another == null) return;
             Debug.Log(name + " steal " + another.name);
-            Tuli += another.Tuli;
-            another.Tuli = 0;
+            // Tuli += another.Tuli;
+            // another.Tuli = 0;
 
             if (ThingGod.StealEvent != null) ThingGod.StealEvent(this, another);
         }
@@ -148,8 +149,8 @@ namespace ThingSpace
         public void Gift(Thing another)
         {
             if (another == null) return;
-            another.Tuli += Tuli;
-            Tuli = 0;
+            // another.Tuli += Tuli;
+            // Tuli = 0;
             Debug.Log(name + " gift " + another.name);
             if (ThingGod.GiftingEvent != null) ThingGod.GiftingEvent(this, another);
             //Gifting, voluntarily transform one’s own Tulis to others;

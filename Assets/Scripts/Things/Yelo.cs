@@ -23,10 +23,10 @@ namespace ThingSpace
             // Erase(other);
 
 
-            if (other.Tuli <= 0)
-            {
+            // if (other.Tuli <= 0)
+            // {
 
-            }
+            // }
         }
 
     }

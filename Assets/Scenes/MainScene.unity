@@ -154,7 +154,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   things: []
   flock: []
-  initialTuli: 10
   monoliths:
   - {fileID: 571165381}
   - {fileID: 762802019}

@@ -13,7 +13,7 @@ namespace ThingSpace
         public List<Thing> things = new List<Thing>();
         [HideInInspector]
         public List<Thing> flock = new List<Thing>();
-        public int initialTuli = 10;
+        // public int initialTuli = 10;
         public Transform[] monoliths;
         public ParticleSystem ps;
 
@@ -138,7 +138,7 @@ namespace ThingSpace
             receiver.dead = true;
             yield return new WaitForSeconds(10);
             //respawn
-            receiver.Tuli = initialTuli;
+            // receiver.Tuli = initialTuli;
             receiver.gameObject.SetActive(true);
             receiver.gameObject.transform.position = SpawnPos();
             receiver.gameObject.transform.Translate(Vector3.up);
