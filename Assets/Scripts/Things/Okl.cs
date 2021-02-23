@@ -16,15 +16,15 @@ namespace ThingSpace
             // Clone(closestThing);
             // Erase(closestThing);
             // Steal(closestThing);
-            // Gift(closestThing);
+            // Gift(closestThing);            
+              Steal(closestThing);
         }
 
         public override void OnTouch(Thing other)
         {
 
-         
-                Clone(other);
             
+                Steal(other);
 
     
         }

@@ -70,6 +70,9 @@ namespace ThingSpace
         }
 
 
+        public float vertexPercentage = 1;
+
+
         public Dictionary<Thing, int> fRecord = new Dictionary<Thing, int>();
 
         public Bounds bounds
@@ -82,7 +85,6 @@ namespace ThingSpace
         void Start()
         {
             Init();
-
 
             //test
 
@@ -108,17 +110,6 @@ namespace ThingSpace
                 collider.convex = true;
             }
 
-            //TODO: select geometry        
-
-
-            /*
-            var triggerSphere = GetComponent<SphereCollider>();        
-            if (triggerSphere == null) triggerSphere = gameObject.AddComponent<SphereCollider>();
-            triggerSphere.isTrigger = true;
-            triggerSphere.radius = 4;
-            */
-
-
             StartCoroutine(IntervalBasedActions());
         }
 
@@ -135,13 +126,23 @@ namespace ThingSpace
             dead = false;
             attached = false;
         }
+        void ChangeVertexAmount(Thing who, float change)
+        {
+            var runtimeSimplifier = who.GetComponent<RuntimeMeshSimplifier>();
+            var simplifier = who.GetComponent<MeshSimplify>();
+
+            who.vertexPercentage = Mathf.Clamp01(who.vertexPercentage + change);
+            Debug.LogFormat("{0} now will have {1}% vertices, changed {2}", who.name, who.vertexPercentage * 100, change);
+            runtimeSimplifier.Simplify(who.vertexPercentage * 100);            
+        }
 
         public void Steal(Thing another)
         {
             if (another == null) return;
             Debug.Log(name + " steal " + another.name);
-            // Tuli += another.Tuli;
-            // another.Tuli = 0;
+
+            ChangeVertexAmount(another, -0.1f);
+            ChangeVertexAmount(this, 0.1f);
 
             if (ThingGod.StealEvent != null) ThingGod.StealEvent(this, another);
         }
@@ -149,6 +150,10 @@ namespace ThingSpace
         public void Gift(Thing another)
         {
             if (another == null) return;
+
+            ChangeVertexAmount(another, +0.1f);
+            ChangeVertexAmount(this, -0.1f);
+
             // another.Tuli += Tuli;
             // Tuli = 0;
             Debug.Log(name + " gift " + another.name);
@@ -168,7 +173,6 @@ namespace ThingSpace
             //connect to rb
             myJoint.connectedBody = another.motor.rb;
             if (ThingGod.StickEvent != null) ThingGod.StickEvent(this, another);
-            Debug.Log("Sticking.");
             //release        
             Invoke("ReleaseSticking", 10);
         }

@@ -62,7 +62,7 @@ public class MeshSimplify : MonoBehaviour
   private bool m_bOverrideRootSettings = false;
 
   [SerializeField, HideInInspector]
-  private bool m_bUseEdgeLength = true, m_bUseCurvature = true, m_bProtectTexture = true, m_bLockBorder = true;
+  private bool m_bUseEdgeLength = true, m_bUseCurvature = false, m_bProtectTexture = false, m_bLockBorder = true;
 
   [SerializeField, HideInInspector]
   private bool m_bDataDirty = true;
