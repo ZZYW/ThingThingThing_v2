@@ -226,7 +226,7 @@ namespace ThingSpace
             //reset when it is out of bound
             foreach (var thing in things)
             {
-                if ((thing.transform.position - Vector3.zero).sqrMagnitude > 9999)
+                if ((thing.transform.position - Vector3.zero).sqrMagnitude > 1000)
                 {
                     Debug.Log("reset " + thing.name + "'s position to 000");
                     var rb = thing.GetComponent<Rigidbody>();

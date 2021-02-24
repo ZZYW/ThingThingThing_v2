@@ -31,7 +31,7 @@ namespace ThingSpace
 
             //read all Thing classes
             var info = new DirectoryInfo(thingScriptDirectoryPath);
-            var fileInfo = info.GetFiles("*.txt");
+            var fileInfo = info.GetFiles("*.cs");
             foreach (var file in fileInfo)
             {
                 string filePath = Path.Combine(Application.dataPath, thingScriptDirectoryPath, file.ToString());

@@ -15,42 +15,21 @@ namespace ThingSpace
     public abstract class Thing : MonoBehaviour
     {
 
-        //user input
-        //will be filled with json data
-        public string[] intervalActions = new string[] { };
-        public string[] touchActions = new string[] { };
-        //        
+
         public int meshIndex;
         public Color color;
         Color accentColor;
+        bool inCD;
+        public float cdLength = 0.5f;
+
         public Boid motor
         {
             get { return GetComponent<Boid>(); }
         }
 
-        bool _attached;
-        public bool attached
-        {
-            get { return _attached; }
-            set
-            {
-                _attached = value;
-                if (value)
-                {
-                    ThingGod.god.RemoveFromFlock(this);
-                }
-                else
-                {
-                    ThingGod.god.AddToFlock(this);
-                    var joint = GetComponent<Joint>();
-                    if (joint != null)
-                    {
-                        joint.connectedBody = null;
-                        Destroy(joint);
-                    }
-                }
-            }
-        }
+
+        public bool attached;
+
         bool _dead;
         public bool dead
         {
@@ -121,6 +100,17 @@ namespace ThingSpace
             }
 
             StartCoroutine(IntervalBasedActions());
+            StartCoroutine(ResetCD());
+        }
+
+
+        IEnumerator ResetCD()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(cdLength);
+                inCD = false;
+            }
         }
 
         void Update()
@@ -137,6 +127,7 @@ namespace ThingSpace
 
 
 
+
         //MONOBEHAVIOUR///////////////////////////////////////
 
 
@@ -147,6 +138,7 @@ namespace ThingSpace
         }
         void ChangeVertexAmount(Thing who, float change)
         {
+
             var runtimeSimplifier = who.GetComponent<RuntimeMeshSimplifier>();
             who.vertexPercentage = Mathf.Clamp(who.vertexPercentage + change, 0.03f, 1f);
             Debug.LogFormat("{0} now will have {1}% vertices, changed {2}", who.name, who.vertexPercentage * 100, change);
@@ -155,7 +147,8 @@ namespace ThingSpace
 
         public void Steal(Thing another)
         {
-            if (another == null) return;
+
+            if (another == null || another == this || inCD) return;
             Debug.Log(name + " steal " + another.name);
 
             ChangeVertexAmount(another, -0.1f);
@@ -163,11 +156,13 @@ namespace ThingSpace
 
 
             if (ThingGod.StealEvent != null) ThingGod.StealEvent(this, another);
+            inCD = true;
         }
 
         public void Gift(Thing another)
         {
-            if (another == null) return;
+
+            if (another == null || another == this || inCD) return;
 
             ChangeVertexAmount(another, +0.1f);
             ChangeVertexAmount(this, -0.1f);
@@ -177,29 +172,33 @@ namespace ThingSpace
             Debug.Log(name + " gift " + another.name);
             if (ThingGod.GiftingEvent != null) ThingGod.GiftingEvent(this, another);
             //Gifting, voluntarily transform one’s own Tulis to others;
+
+            inCD = true;
         }
 
         public void Stick(Thing another)
         {
-            if (another == null) return;
+            if (another == null || another == this || inCD) return;
             if (attached) return;
             Debug.Log(name + " stick " + another.name);
             //Follow, attach onto another thing for a limited period of time;
             transform.position = another.transform.position + another.transform.GetComponent<Collider>().bounds.extents.x * (transform.position - another.transform.position).normalized;
             motor.rb.velocity = Vector3.zero;
             //create a new joint to connect
-            var myJoint = gameObject.AddComponent<CharacterJoint>();
+            var myJoint = gameObject.GetComponent<CharacterJoint>();
+            if (myJoint == null) myJoint = gameObject.AddComponent<CharacterJoint>();
             //connect to rb
             myJoint.connectedBody = another.motor.rb;
             if (ThingGod.StickEvent != null) ThingGod.StickEvent(this, another);
             attached = true;
             //release        
             Invoke("ReleaseSticking", 10);
+            inCD = true;
         }
 
         public void Clone(Thing another)
         {
-            if (another == null) return;
+            if (another == null || another == this || inCD) return;
             if (!CloneRegulator.instance.canClone) return;
             var cloneLayer = Regex.Matches(another.gameObject.name, "(Clone)").Count;
             if (cloneLayer > 5) return;
@@ -207,14 +206,16 @@ namespace ThingSpace
             ThingGod.god.CloneThing(another, transform.position, another.transform.localScale * 0.9f);
             if (ThingGod.CloneEvent != null) ThingGod.CloneEvent(this, another);
             //Mate, give birth to a baby that resembles other thing;
+            inCD = true;
         }
 
         public void Erase(Thing another)
         {
-            if (another == null) return;
+            if (another == null || another == this || inCD) return;
             Debug.Log(name + " kill " + another.name);
             ThingGod.god.TryErase(another);
             if (ThingGod.EraseEvent != null) ThingGod.EraseEvent(this, another);
+            inCD = true;
         }
 
         public void Group(Thing another)
@@ -233,7 +234,7 @@ namespace ThingSpace
 
         public void Seek(Thing another)
         {
-            if (another == null) return;
+            if (another == null || another == this) return;
             //Aim, walk towards the direction of a shan, an er, a monolith, or the tuli mountain. 
             motor.target = another.transform;
             if (ThingGod.SeekEvent != null) ThingGod.SeekEvent(this, another);
@@ -244,6 +245,11 @@ namespace ThingSpace
         void ReleaseSticking()
         {
             attached = false;
+            var joints = GetComponents<Joint>();
+            for (int i = 0; i < joints.Length; i++)
+            {
+                Destroy(joints[i]);
+            }
         }
 
         void ReleaseTarget()

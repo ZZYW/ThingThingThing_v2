@@ -13,14 +13,12 @@ namespace ThingSpace
 
         public override void IntervalAction(Thing closestThing)
         {
-            Steal(closestThing);
+            Stick(closestThing);
         }
 
         public override void OnTouch(Thing other)
         {
-
-
-            Stick(other);
+           
         }
 
     }

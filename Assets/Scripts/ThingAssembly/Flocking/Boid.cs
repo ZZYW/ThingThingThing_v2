@@ -45,7 +45,6 @@ namespace ThingSpace
         
         public void InitParas()
         {
-            Debug.Log("boid -> init parameters");
             //default               
             sepWeight += Random.Range(-0.2f, 0.2f);
             aliWeight += Random.Range(-0.2f, 0.2f);
