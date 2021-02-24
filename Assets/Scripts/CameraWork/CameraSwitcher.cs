@@ -14,13 +14,12 @@ namespace ThingSpace
 
         [Range(1, 200)]
         public float intervals = 20f;
-        public bool switching = true;
 
         [SerializeField] GameObject mainCam;
         [SerializeField] GameObject followCam;
 
-        List<Thing> allThings;
-        bool useMain = false;
+
+        public bool useMain { get; private set; }
         CameraFollowThing cameraFollowThing;
 
         int switchCounter = 0;
@@ -31,26 +30,23 @@ namespace ThingSpace
         void Awake()
         {
             main = this;
+            ActiveCam = gameObject.GetComponentInChildren<Camera>(false).transform;
+            cameraFollowThing = followCam.GetComponent<CameraFollowThing>();
         }
 
         // Use this for initialization
         void Start()
         {
-            cameraFollowThing = followCam.GetComponent<CameraFollowThing>();
 
-            allThings = ThingGod.god.things;
-
-            if (allThings.Count < 1) return;
-            AssignFollowTarget();
-
+            ChangeCamera();
             InvokeRepeating("ChangeCamera", intervals, intervals);
-            SetActiveCameras();
+
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (allThings.Count < 1) return;
+            if (ThingGod.god.things.Count < 1) return;
             if (Input.GetKeyUp(KeyCode.Mouse0))
             {
                 ChangeCamera();
@@ -63,21 +59,14 @@ namespace ThingSpace
             hue = (Mathf.Sin(time) + 1) / 2f;
         }
 
-        void AssignFollowTarget()
-        {
-            GameObject oneRandomThing = allThings[(int)Random.Range(0, allThings.Count)].gameObject;
-            cameraFollowThing.followTarget = oneRandomThing.transform;
-
-            // float desiredFollowDistance = 1;
-            // desiredFollowDistance = oneRandomThing.GetComponent<Thing>().DesiredFollowDistance;
-            cameraFollowThing.followDistance = 0.4f;
-        }
 
         void ChangeCamera()
         {
             switchCounter++;
 
-            if (switchCounter % mainCamTurnQueue == 0)
+
+
+            if (switchCounter % mainCamTurnQueue == 0 || ThingGod.god.things.Count < 1)
             {
                 useMain = true;
             }
@@ -87,20 +76,31 @@ namespace ThingSpace
             }
 
 
+            //Debug.LogFormat("has {0} things, trying to switch to main? {1}", ThingGod.god.things.Count, useMain);
+
             //randomly choose one Thing
-            if (!useMain) AssignFollowTarget();
-            if (!switching) return;
+            if (!useMain)
+            {
+                GameObject oneRandomThing = ThingGod.god.things[(int)Random.Range(0, ThingGod.god.things.Count)].gameObject;
+                Debug.Log(oneRandomThing + ", thing count: " + ThingGod.god.things.Count);
+                cameraFollowThing.followTarget = oneRandomThing.transform;
+                cameraFollowThing.followDistance = 0.4f;
+            }
 
-            SetActiveCameras();
-        }
 
-        void SetActiveCameras()
-        {
+            foreach (var t in ThingGod.god.things)
+            {
+                t.plate.fontSize = useMain ? 5 : 1;
+            }
+
+            //set active
             mainCam.SetActive(useMain);
             followCam.SetActive(!useMain);
             ActiveCam = useMain ? mainCam.transform : followCam.transform;
             if (OnCameraSwitch != null) OnCameraSwitch();
         }
+
+
 
     }
 }

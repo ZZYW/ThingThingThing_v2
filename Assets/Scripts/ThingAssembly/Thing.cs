@@ -72,8 +72,18 @@ namespace ThingSpace
 
         public float vertexPercentage = 1;
 
+        public UnityEngine.UI.Text plate = null;
 
-        public Dictionary<Thing, int> fRecord = new Dictionary<Thing, int>();
+
+        public float vertexCount
+        {
+            get
+            {
+                var ms = GetComponent<MeshSimplify>();
+                return (ms.GetOriginalVertexCount(false) - ms.GetSimplifiedVertexCount(false)) / (float)ms.GetOriginalVertexCount(false);
+            }
+        }
+
 
         public Bounds bounds
         {
@@ -116,7 +126,16 @@ namespace ThingSpace
         void Update()
         {
             motor.inEffect = !attached;
+
+            if (plate != null)
+            {
+                plate.transform.position = transform.position + (CameraSwitcher.main.useMain ? 1 : 2) * Vector3.up;
+                plate.text = name + ": " + GetComponent<MeshSimplify>().m_fVertexAmount;
+                plate.transform.rotation = Quaternion.LookRotation(CameraSwitcher.main.ActiveCam.position - plate.transform.position, CameraSwitcher.main.ActiveCam.up);
+            }
         }
+
+
 
         //MONOBEHAVIOUR///////////////////////////////////////
 
@@ -129,9 +148,9 @@ namespace ThingSpace
         void ChangeVertexAmount(Thing who, float change)
         {
             var runtimeSimplifier = who.GetComponent<RuntimeMeshSimplifier>();
-            who.vertexPercentage = Mathf.Clamp(who.vertexPercentage + change, 0.1f,1f);
+            who.vertexPercentage = Mathf.Clamp(who.vertexPercentage + change, 0.03f, 1f);
             Debug.LogFormat("{0} now will have {1}% vertices, changed {2}", who.name, who.vertexPercentage * 100, change);
-            runtimeSimplifier.Simplify( who.vertexPercentage * 100 );           
+            runtimeSimplifier.Simplify(who.vertexPercentage * 100);
         }
 
         public void Steal(Thing another)
@@ -141,6 +160,7 @@ namespace ThingSpace
 
             ChangeVertexAmount(another, -0.1f);
             ChangeVertexAmount(this, 0.1f);
+
 
             if (ThingGod.StealEvent != null) ThingGod.StealEvent(this, another);
         }
@@ -162,6 +182,7 @@ namespace ThingSpace
         public void Stick(Thing another)
         {
             if (another == null) return;
+            if (attached) return;
             Debug.Log(name + " stick " + another.name);
             //Follow, attach onto another thing for a limited period of time;
             transform.position = another.transform.position + another.transform.GetComponent<Collider>().bounds.extents.x * (transform.position - another.transform.position).normalized;
@@ -171,6 +192,7 @@ namespace ThingSpace
             //connect to rb
             myJoint.connectedBody = another.motor.rb;
             if (ThingGod.StickEvent != null) ThingGod.StickEvent(this, another);
+            attached = true;
             //release        
             Invoke("ReleaseSticking", 10);
         }
@@ -218,28 +240,6 @@ namespace ThingSpace
             Invoke("ReleaseTarget", 15f);
         }
 
-        public void DecreaseScore(int n, Thing who)
-        {
-            if (fRecord.ContainsKey(who))
-            {
-                fRecord[who] -= n;
-            }
-            else
-            {
-                fRecord[who] = -n;
-            }
-        }
-        public void IncreaseScore(int n, Thing who)
-        {
-            if (fRecord.ContainsKey(who))
-            {
-                fRecord[who] += n;
-            }
-            else
-            {
-                fRecord[who] = n;
-            }
-        }
 
         void ReleaseSticking()
         {
@@ -301,6 +301,7 @@ namespace ThingSpace
 
 
 
+
         // void OnTriggerEnter(Collider other)
         // {
         //     if (fRecord.ContainsKey(other.GetComponent<Thing>()))
@@ -310,4 +311,13 @@ namespace ThingSpace
 
         // }
     }
+}
+public static class ExtensionMethods
+{
+
+    public static float Remap(this float value, float from1, float to1, float from2, float to2)
+    {
+        return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+    }
+
 }

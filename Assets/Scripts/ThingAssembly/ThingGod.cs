@@ -21,6 +21,7 @@ namespace ThingSpace
 
         public List<GameObject> availableModels = new List<GameObject>();
         public Material thingMat;
+        public UnityEngine.UI.Text plateSample;
 
         void Awake()
         {
@@ -55,26 +56,26 @@ namespace ThingSpace
         void OnSteal(Thing actor, Thing receiver)
         {
             FireStealParticle(actor.transform.position);
-            receiver.DecreaseScore(1, actor);
+            //receiver.DecreaseScore(1, actor);
 
         }
 
         void OnErase(Thing actor, Thing receiver)
         {
             FireEraseParticle(actor.transform.position);
-            receiver.DecreaseScore(2, actor);
+            //receiver.DecreaseScore(2, actor);
         }
 
         void OnClone(Thing actor, Thing receiver)
         {
             CloneRegulator.instance.Cloned();
-            receiver.IncreaseScore(2, actor);
+            //receiver.IncreaseScore(2, actor);
         }
 
         void OnGifting(Thing actor, Thing receiver)
         {
             FireGiftingParticle(actor.transform.position);
-            receiver.IncreaseScore(1, actor);
+            //receiver.IncreaseScore(1, actor);
         }
 
         void OnSeek(Thing actor, Thing receiver)
@@ -92,8 +93,17 @@ namespace ThingSpace
             flock.Add(t);
             FireBornParticle(t.transform.position);
             Debug.Log("new thing " + t.name + " is born.");
+            //create a overhead text for it
+            t.plate = getNewPlateText();
 
 
+        }
+
+        UnityEngine.UI.Text getNewPlateText()
+        {
+            var newText = Instantiate(plateSample, plateSample.transform.parent);
+            newText.gameObject.SetActive(true);
+            return newText;
         }
         /////////////////////////////////////////////////////////////////////////////////
         //Particle stuff
@@ -218,6 +228,7 @@ namespace ThingSpace
             {
                 if ((thing.transform.position - Vector3.zero).sqrMagnitude > 9999)
                 {
+                    Debug.Log("reset " + thing.name + "'s position to 000");
                     var rb = thing.GetComponent<Rigidbody>();
                     var delta = rb.position - Vector3.zero;
 

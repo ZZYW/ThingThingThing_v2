@@ -13,6 +13,8 @@ namespace ThingSpace
         [Range(0, 100)]
         public float percentage;
 
+     
+
         // Start is called before the first frame update
         void Start()
         {

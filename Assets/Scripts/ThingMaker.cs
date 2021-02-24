@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RoslynCSharp;
 using System.IO;
+using UnityEngine.UI;
 
 namespace ThingSpace
 {
@@ -17,6 +18,8 @@ namespace ThingSpace
 
         public bool useCubeAsMesh;
 
+  
+
         // Start is called before the first frame update
         void Start()
         {
@@ -28,7 +31,7 @@ namespace ThingSpace
 
             //read all Thing classes
             var info = new DirectoryInfo(thingScriptDirectoryPath);
-            var fileInfo = info.GetFiles("*.cs");
+            var fileInfo = info.GetFiles("*.txt");
             foreach (var file in fileInfo)
             {
                 string filePath = Path.Combine(Application.dataPath, thingScriptDirectoryPath, file.ToString());
@@ -61,6 +64,8 @@ namespace ThingSpace
 
             //reset new thing's position
             go.transform.position = Random.insideUnitSphere * spawnAreaRadius;
+
+          
                    
 
             if (ThingGod.ThingBornEvent != null) ThingGod.ThingBornEvent(newThing);
@@ -72,5 +77,7 @@ namespace ThingSpace
         {
 
         }
+
+    
     }
 }
