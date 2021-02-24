@@ -26,7 +26,7 @@ namespace ThingSpace
         // Update is called once per frame
         void Update()
         {
-            Debug.Log(simplify.GetSimplifiedVertexCount(false));
+            //Debug.Log(simplify.GetSimplifiedVertexCount(false));
             if (simp)
             {
                 Debug.Log("exe");

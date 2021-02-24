@@ -129,11 +129,9 @@ namespace ThingSpace
         void ChangeVertexAmount(Thing who, float change)
         {
             var runtimeSimplifier = who.GetComponent<RuntimeMeshSimplifier>();
-            var simplifier = who.GetComponent<MeshSimplify>();
-
-            who.vertexPercentage = Mathf.Clamp01(who.vertexPercentage + change);
+            who.vertexPercentage = Mathf.Clamp(who.vertexPercentage + change, 0.1f,1f);
             Debug.LogFormat("{0} now will have {1}% vertices, changed {2}", who.name, who.vertexPercentage * 100, change);
-            runtimeSimplifier.Simplify(who.vertexPercentage * 100);            
+            runtimeSimplifier.Simplify( who.vertexPercentage * 100 );           
         }
 
         public void Steal(Thing another)
