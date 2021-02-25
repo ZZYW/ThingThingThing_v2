@@ -6,7 +6,7 @@ namespace ThingSpace
         public override void Init()
         {
             //you can assign those variables value here:
-            meshIndex = 3;
+            meshIndex = -1;
 
             speed = 5;
             seperation = 0.1;

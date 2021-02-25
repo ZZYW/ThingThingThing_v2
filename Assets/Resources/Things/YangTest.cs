@@ -7,6 +7,7 @@ namespace ThingSpace
         public override void Init()
         {
             //assign variable values here
+            meshIndex = -1;
         }
     
         public override void IntervalAction(Thing other)

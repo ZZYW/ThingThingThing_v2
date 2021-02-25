@@ -61,7 +61,7 @@ namespace ThingSpace
 
         float initialVertexCount;
         public float vertexCount { get; private set; }
-       
+
 
 
         public Bounds bounds
@@ -80,32 +80,52 @@ namespace ThingSpace
         }
 
         void Start()
-        {            
+        {
 
             bool isOriginal = GetComponent<MeshFilter>().sharedMesh == null;
 
             if (isOriginal)
             {
-               
 
-                meshIndex = (int)(UnityEngine.Random.value * ThingGod.god.availableModels.Count);
 
+
+                if (meshIndex < 0 || meshIndex >= ThingGod.god.availableModels.Count) meshIndex = (int)(UnityEngine.Random.value * ThingGod.god.availableModels.Count);
                 var mesh = ThingGod.god.availableModels[meshIndex].GetComponentInChildren<MeshFilter>().sharedMesh;
                 GetComponent<MeshFilter>().mesh = mesh;
                 initialVertexCount = mesh.vertexCount;
                 vertexCount = initialVertexCount;
-                GetComponent<MeshRenderer>().material = ThingGod.god.thingMat;
-                GetComponent<MeshRenderer>().material.SetVector("_VertexDisScale", Vector3.one * (float)spikyness);
-                var myMat = GetComponent<MeshRenderer>().material;
+
+                int matCount = GetComponent<MeshRenderer>().materials.Length;
+                Material[] mats = new Material[matCount];
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    mats[i] = ThingGod.god.thingMat;
+                    mats[i].SetVector("_VertexDisScale", Vector3.one * (float)spikyness);
+                }
+                GetComponent<MeshRenderer>().materials = mats;
+
+                //GetComponent<MeshRenderer>().material.SetVector("_VertexDisScale", Vector3.one * (float)spikyness);
+                //var myMat = GetComponent<MeshRenderer>().material;
                 //calculate accent color
                 //set color
                 color = new Color((float)red, (float)green, (float)blue);
                 float h, s, v;
                 Color.RGBToHSV(color, out h, out s, out v);
-                accentColor = Color.HSVToRGB((((h * 360) + 180f) % 360) / 360f, Mathf.Clamp01(s / 2f), Mathf.Clamp01(v / 2f));
+                accentColor = Color.HSVToRGB((((h * 360) + 180f) % 360) / 360f, Mathf.Clamp01(s), Mathf.Clamp01(v));
                 //set color
-                myMat.SetColor("_ColorA1", color);
-                myMat.SetColor("_ColorA2", accentColor);
+
+
+                foreach (var mat in GetComponent<MeshRenderer>().materials)
+                {
+
+
+                    mat.SetColor("_ColorA1", color);
+                    mat.SetColor("_ColorA2", accentColor);
+                }
+
+
+
+
 
                 //collider
                 var collider = GetComponent<MeshCollider>();
@@ -114,7 +134,7 @@ namespace ThingSpace
 
                 //set size
                 gameObject.transform.localScale = new Vector3((float)width, (float)height, (float)depth);
-               
+
 
             }
 
@@ -123,6 +143,7 @@ namespace ThingSpace
             StartCoroutine(IntervalBasedActions());
             StartCoroutine(ResetCD());
         }
+
 
 
         IEnumerator ResetCD()
@@ -165,7 +186,7 @@ namespace ThingSpace
         void ChangeVertexAmount(Thing who, float change)
         {
 
-           
+
             var runtimeSimplifier = who.GetComponent<RuntimeMeshSimplifier>();
             who.vertexPercentage = Mathf.Clamp(who.vertexPercentage + change, 0.03f, 1f);
             //Debug.LogFormat("{0} now will have {1}% vertices, changed {2}", who.name, who.vertexPercentage * 100, change);
@@ -360,7 +381,7 @@ namespace ThingSpace
         }
     }
 
-    
+
 }
 public static class ExtensionMethods
 {
@@ -369,6 +390,6 @@ public static class ExtensionMethods
     {
         return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
-    
+
 
 }

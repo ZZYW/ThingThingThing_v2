@@ -127,8 +127,8 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorA1: {r: 1, g: 1, b: 1, a: 0}
-    - _ColorA2: {r: 0, g: 1, b: 0.93880534, a: 0}
+    - _ColorA1: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorA2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _ColorB1: {r: 0, g: 0.167027, b: 1, a: 0}
     - _ColorB2: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

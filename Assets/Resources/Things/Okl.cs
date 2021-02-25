@@ -4,8 +4,8 @@ namespace ThingSpace
     public class Okl : Thing
     {
         public override void Init()
-        {          
-            speed = 1;
+        {
+            speed = -1;
             //red = Random.value;
             //green = Random.value;
             //blue = Random.value;

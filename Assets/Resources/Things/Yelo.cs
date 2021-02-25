@@ -5,8 +5,13 @@ namespace ThingSpace
     {
         public override void Init()
         {
+            meshIndex = -1;
             speed = 3;
             cohesion = 2;
+            red = 0;
+            green = 0;
+            blue = 1;
+
       
 
         }

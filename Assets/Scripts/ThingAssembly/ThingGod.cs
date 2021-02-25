@@ -20,6 +20,7 @@ namespace ThingSpace
         int burstParticleCount = 1;
 
         public List<GameObject> availableModels = new List<GameObject>();
+        public string modelPath = "Resources/Curated_cleaned";
         public Material thingMat;
         public Material deadMat;
         public UnityEngine.UI.Text plateSample;
@@ -27,6 +28,8 @@ namespace ThingSpace
         void Awake()
         {
             god = this;
+            availableModels = Resources.LoadAll<GameObject>(modelPath).ToList();
+            Debug.Log(availableModels.Count);
             availableModels.RemoveAll(i => i == null);
         }
 
@@ -65,7 +68,18 @@ namespace ThingSpace
         {
             things.Remove(receiver);
             flock.Remove(receiver);
-            receiver.GetComponent<MeshRenderer>().sharedMaterial = deadMat;
+
+            Material[] mats = new Material[receiver.GetComponent<MeshRenderer>().sharedMaterials.Length];
+            for (int i = 0; i < mats.Length; i++)
+            {
+                mats[i] = deadMat;
+            }
+            receiver.GetComponent<MeshRenderer>().sharedMaterials = mats;
+            //for(int i=0;i < receiver.GetComponent<MeshRenderer>().sharedMaterials.Length; i++)
+            //{
+            //    receiver.GetComponent<MeshRenderer>().sharedMaterials[i] = deadMat;
+            //}
+            //receiver.GetComponent<MeshRenderer>().sharedMaterials = 
             FireEraseParticle(actor.transform.position);
             //receiver.DecreaseScore(2, actor);
         }

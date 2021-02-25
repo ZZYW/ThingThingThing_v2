@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 1.3313136, g: 1.1563598, b: 0.34473136, a: 1}
+  m_IndirectSpecularColor: {r: 1.3313152, g: 1.1563613, b: 0.34473196, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -181,6 +181,31 @@ MonoBehaviour:
   - {fileID: 391373880043853999, guid: 2578e6291eb924265adec6f81328d42a, type: 3}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  modelPath: Curated_cleaned
   thingMat: {fileID: 2100000, guid: 7d846646bfb634bcaa5ba29d692d9451, type: 2}
   deadMat: {fileID: 2100000, guid: d391f6280c9534aa59391909f6df9de0, type: 2}
   plateSample: {fileID: 1775498419}
@@ -1412,6 +1437,7 @@ MonoBehaviour:
   red: 1
   green: 1
   blue: 1
+  spikyness: 0.10000000149011612
   attached: 0
   vertexPercentage: 1
   plate: {fileID: 0}
