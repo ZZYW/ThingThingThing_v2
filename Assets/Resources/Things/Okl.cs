@@ -17,7 +17,7 @@ namespace ThingSpace
             // Erase(closestThing);
             // Steal(closestThing);
             // Gift(closestThing);            
-              Steal(other);
+            Gift(other);
         }
 
         public override void OnTouch(Thing other)

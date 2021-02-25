@@ -21,7 +21,10 @@ namespace ThingSpace
         public override void OnTouch(Thing other)
         {
 
-            Seek(other);
+            if (other.vertexCount > 1)
+            {
+                Seek(other);
+            }
             // Erase(other);
 
 

@@ -24,7 +24,7 @@ namespace ThingSpace
 
         public override void OnTouch(Thing other)
         {
-            Erase(other);
+            Clone(other);
         }
 
     }

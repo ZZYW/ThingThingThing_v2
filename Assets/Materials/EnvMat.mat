@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: EnvMat
   m_Shader: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
-  m_ShaderKeywords: N_F_EAL_ON N_F_O_ON N_F_RELGI_ON N_F_SS_ON _EMISSION
+  m_ShaderKeywords: N_F_EAL_ON N_F_O_ON N_F_RELGI_ON N_F_SS_ON _EMISSION _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -141,9 +141,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - BOOLEAN_9EF35B3849C242458168C9F74A8B1B1A: 1
     - _AlphaBaseCutout: 1
     - _AlphaClip: 0
-    - _AnimatorSwitch: 0
+    - _AnimatorSwitch: 1
     - _AtmosphereThickness: 0.79
     - _Blend: 0
     - _BumpScale: 1
@@ -158,7 +159,7 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DirectionalLightIntensity: 0
-    - _DitherSize: 0.8
+    - _DitherSize: 0.88
     - _DoubleSided: 2
     - _DoubleSidedOutline: 1
     - _DstBlend: 0
@@ -279,7 +280,7 @@ Material:
     - _TEXMCOLINT: 1
     - _TexturePatternStyle: 0
     - _TimeScale: 0
-    - _UVMultiplier: 2.04
+    - _UVMultiplier: 1.72
     - _UVSec: 0
     - _UseSecondaryCutout: 0
     - _UseTLB: 0
@@ -288,14 +289,14 @@ Material:
     - _VertexColorGreenControlSelfShadowThreshold: 0
     - _VertexColorRedControlSmoothObjectNormal: 0
     - _VertexDisNoiseScale: 400
-    - _WorkflowMode: 0
+    - _WorkflowMode: 1
     - _XYZHardness: 14
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.83391345, g: 1, b: 0.7411765, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorA1: {r: 0.42396975, g: 1, b: 0, a: 0}
-    - _ColorA2: {r: 1, g: 0.78266525, b: 0, a: 0}
+    - _ColorA1: {r: 1, g: 0.9082564, b: 0, a: 0}
+    - _ColorA2: {r: 0, g: 1, b: 0.9211519, a: 0}
     - _ColorB1: {r: 1, g: 0.6462264, b: 0.65038854, a: 0}
     - _ColorB2: {r: 0.6478729, g: 0.64800537, b: 0.6509434, a: 0}
     - _CustomLightDirection: {r: 0, g: 0, b: 10, a: 0}
@@ -303,7 +304,7 @@ Material:
     - _GlossColor: {r: 1, g: 1, b: 1, a: 1}
     - _GroundColor: {r: 1, g: 1, b: 1, a: 1}
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _MainColor: {r: 0.62419903, g: 0.7777249, b: 0.7830189, a: 1}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineOffset: {r: 0, g: 0, b: 0, a: 1}
     - _OverallShadowColor: {r: 0, g: 0, b: 0, a: 1}

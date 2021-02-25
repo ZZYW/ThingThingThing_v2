@@ -17,7 +17,7 @@ namespace ThingSpace
         public Transform[] monoliths;
         public ParticleSystem ps;
 
-        int burstParticleCount = 30;
+        int burstParticleCount = 1;
 
         public List<GameObject> availableModels = new List<GameObject>();
         public Material thingMat;
