@@ -59,7 +59,7 @@ namespace ThingSpace
 
 
         float initialVertexCount;
-        public float vertexCount;
+        public float vertexCount { get; private set; }
        
 
 
