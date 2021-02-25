@@ -1306,7 +1306,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 55.7
+  field of view: 38
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1811,8 +1811,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 0}
-  followDistance: 3
-  elevation: 3
+  followDistance: 3.96
+  elevation: 1.6
   HUDText: {fileID: 0}
   rollCalling: 1
   interval: 5
@@ -2103,7 +2103,7 @@ MonoBehaviour:
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 100
+  m_DynamicPixelsPerUnit: 200
   m_PresetInfoIsWorld: 1
 --- !u!223 &1675062463
 Canvas:
@@ -2636,7 +2636,17 @@ PrefabInstance:
     - target: {fileID: 8509991361166678122, guid: 8ae643b14291b4f08b9cec3e7526651d,
         type: 3}
       propertyPath: TrailModule.ratio
-      value: 0.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509991361166678122, guid: 8ae643b14291b4f08b9cec3e7526651d,
+        type: 3}
+      propertyPath: SizeModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509991361166678122, guid: 8ae643b14291b4f08b9cec3e7526651d,
+        type: 3}
+      propertyPath: CollisionModule.type
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8509991361166678122, guid: 8ae643b14291b4f08b9cec3e7526651d,
         type: 3}
@@ -2646,12 +2656,17 @@ PrefabInstance:
     - target: {fileID: 8509991361166678122, guid: 8ae643b14291b4f08b9cec3e7526651d,
         type: 3}
       propertyPath: CollisionModule.quality
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8509991361166678122, guid: 8ae643b14291b4f08b9cec3e7526651d,
         type: 3}
       propertyPath: TrailModule.lifetime.scalar
-      value: 1
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8509991361166678122, guid: 8ae643b14291b4f08b9cec3e7526651d,
+        type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 8509991361166678122, guid: 8ae643b14291b4f08b9cec3e7526651d,
         type: 3}
@@ -2661,12 +2676,12 @@ PrefabInstance:
     - target: {fileID: 8509991361166678122, guid: 8ae643b14291b4f08b9cec3e7526651d,
         type: 3}
       propertyPath: CollisionModule.m_Bounce.scalar
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8509991361166678122, guid: 8ae643b14291b4f08b9cec3e7526651d,
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8509991361166678122, guid: 8ae643b14291b4f08b9cec3e7526651d,
         type: 3}

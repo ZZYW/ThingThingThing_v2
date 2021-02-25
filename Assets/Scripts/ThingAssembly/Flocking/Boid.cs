@@ -37,11 +37,11 @@ namespace ThingSpace
         public void InitParas()
         {
             //default               
-            sepWeight += Random.Range(-0.2f, 0.2f);
-            aliWeight += Random.Range(-0.2f, 0.2f);
-            cohWeight += Random.Range(-0.2f, 0.2f);
-            seekWeight += Random.Range(-0.2f, 0.2f);
-            speed += Random.Range(-4f, 4f);
+            //sepWeight += Random.Range(-0.2f, 0.2f);
+            //aliWeight += Random.Range(-0.2f, 0.2f);
+            //cohWeight += Random.Range(-0.2f, 0.2f);
+            //seekWeight += Random.Range(-0.2f, 0.2f);
+            //speed += Random.Range(-4f, 4f);
             maxForceSq += Random.Range(-20f, 20f);
             rb.velocity = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
             rb.useGravity = true;
