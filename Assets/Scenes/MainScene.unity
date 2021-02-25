@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 1.3313152, g: 1.1563613, b: 0.34473196, a: 1}
+  m_IndirectSpecularColor: {r: 1.3313146, g: 1.1563606, b: 0.3447319, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1290,7 +1290,7 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1427,20 +1427,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289e1ae1bacae410ea95e69dacf342ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshIndex: 0
-  width: 1
-  height: 1
-  depth: 1
-  speed: 1
-  seperation: 1
-  cohesion: 1
-  red: 1
-  green: 1
-  blue: 1
-  spikyness: 0.10000000149011612
-  attached: 0
-  vertexPercentage: 1
-  plate: {fileID: 0}
 --- !u!114 &1030802102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1764,7 +1750,7 @@ Camera:
   m_GameObject: {fileID: 1386320753}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1811,7 +1797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 0}
-  followDistance: 3.96
+  followDistance: 4
   elevation: 1.6
   HUDText: {fileID: 0}
   rollCalling: 1

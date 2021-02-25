@@ -83,8 +83,7 @@ namespace ThingSpace
             {
                 GameObject oneRandomThing = ThingGod.god.things[(int)Random.Range(0, ThingGod.god.things.Count)].gameObject;
                 Debug.Log(oneRandomThing + ", thing count: " + ThingGod.god.things.Count);
-                cameraFollowThing.followTarget = oneRandomThing.transform;
-                cameraFollowThing.followDistance = 0.4f;
+                cameraFollowThing.followTarget = oneRandomThing.transform;                
             }
 
 
