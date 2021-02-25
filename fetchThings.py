@@ -21,7 +21,7 @@ for blob in blobs:
     if filename.strip()=="":
         continue
     print(filename)
-    filepath = os.path.join(os.getcwd(),"Assets/Scripts/Things",filename)
+    filepath = os.path.join(os.getcwd(),"Assets/Resources/Things",filename)
     blob.download_to_filename(filepath)
 
     # https://googleapis.dev/python/storage/latest/blobs.html

@@ -90,6 +90,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - BOOLEAN_9EF35B3849C242458168C9F74A8B1B1A: 0
     - _AlphaClip: 0
     - _AnimatorSwitch: 0
     - _Blend: 0
@@ -132,5 +133,5 @@ Material:
     - _ColorB2: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
-    - _VertexDisScale: {r: 0.2, g: 0.2, b: 0.2, a: 0}
+    - _VertexDisScale: {r: 0.1, g: 0.1, b: 0.1, a: 0}
   m_BuildTextureStacks: []

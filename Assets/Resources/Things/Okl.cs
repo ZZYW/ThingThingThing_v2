@@ -6,9 +6,9 @@ namespace ThingSpace
         public override void Init()
         {          
             speed = 1;
-            red = Random.value;
-            green = Random.value;
-            blue = Random.value;
+            //red = Random.value;
+            //green = Random.value;
+            //blue = Random.value;
         }
 
         public override void IntervalAction(Thing other)

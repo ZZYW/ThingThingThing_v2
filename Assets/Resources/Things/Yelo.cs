@@ -7,9 +7,7 @@ namespace ThingSpace
         {
             speed = 3;
             cohesion = 2;
-            red = Random.value;
-            green = Random.value;
-            blue = Random.value;
+      
 
         }
 

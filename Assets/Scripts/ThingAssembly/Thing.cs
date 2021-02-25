@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using UltimateGameTools.MeshSimplifier;
 
+
 namespace ThingSpace
 {
     [RequireComponent(typeof(Boid))]
@@ -24,7 +25,7 @@ namespace ThingSpace
 
         //child class will change those:
         public int meshIndex;
-        public double width = 1, height = 1, depth = 1, speed = 1, seperation = 1, cohesion = 1, red = 1, green = 1, blue = 1;
+        public double width = 1, height = 1, depth = 1, speed = 1, seperation = 1, cohesion = 1, red = 1, green = 1, blue = 1, spikyness = 0.1f;
         ///....................................
         Color color;
         Color accentColor;
@@ -87,13 +88,14 @@ namespace ThingSpace
             {
                
 
-                meshIndex = (int)(Random.value * ThingGod.god.availableModels.Count);
+                meshIndex = (int)(UnityEngine.Random.value * ThingGod.god.availableModels.Count);
 
                 var mesh = ThingGod.god.availableModels[meshIndex].GetComponentInChildren<MeshFilter>().sharedMesh;
                 GetComponent<MeshFilter>().mesh = mesh;
                 initialVertexCount = mesh.vertexCount;
                 vertexCount = initialVertexCount;
                 GetComponent<MeshRenderer>().material = ThingGod.god.thingMat;
+                GetComponent<MeshRenderer>().material.SetVector("_VertexDisScale", Vector3.one * (float)spikyness);
                 var myMat = GetComponent<MeshRenderer>().material;
                 //calculate accent color
                 //set color
@@ -350,7 +352,15 @@ namespace ThingSpace
         //     }
 
         // }
+
+
+        public static double Random(double start, double end)
+        {
+            return UnityEngine.Random.Range((float)start, (float)end);
+        }
     }
+
+    
 }
 public static class ExtensionMethods
 {
@@ -359,5 +369,6 @@ public static class ExtensionMethods
     {
         return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
+    
 
 }
