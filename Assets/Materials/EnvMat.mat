@@ -21,7 +21,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: EnvMat
-  m_Shader: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 8dd69e9757b9518489fcfeddcb9f2aa5,
+    type: 3}
   m_ShaderKeywords: N_F_EAL_ON N_F_O_ON N_F_RELGI_ON N_F_SS_ON _EMISSION _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -142,6 +143,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - BOOLEAN_9EF35B3849C242458168C9F74A8B1B1A: 1
+    - Vector1_8ac8fe2e89444cbcbabb0aa095f9d1ca: 17.22
     - _AlphaBaseCutout: 1
     - _AlphaClip: 0
     - _AnimatorSwitch: 1
