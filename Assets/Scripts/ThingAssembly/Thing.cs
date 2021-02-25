@@ -58,14 +58,9 @@ namespace ThingSpace
         public UnityEngine.UI.Text plate = null;
 
 
-        public float vertexCount
-        {
-            get
-            {
-                var ms = GetComponent<MeshSimplify>();
-                return (ms.GetOriginalVertexCount(false) - ms.GetSimplifiedVertexCount(false)) / (float)ms.GetOriginalVertexCount(false);
-            }
-        }
+        float initialVertexCount;
+        public float vertexCount;
+       
 
 
         public Bounds bounds
@@ -96,6 +91,8 @@ namespace ThingSpace
 
                 var mesh = ThingGod.god.availableModels[meshIndex].GetComponentInChildren<MeshFilter>().sharedMesh;
                 GetComponent<MeshFilter>().mesh = mesh;
+                initialVertexCount = mesh.vertexCount;
+                vertexCount = initialVertexCount;
                 GetComponent<MeshRenderer>().material = ThingGod.god.thingMat;
                 var myMat = GetComponent<MeshRenderer>().material;
                 //calculate accent color
@@ -142,7 +139,7 @@ namespace ThingSpace
             if (plate != null)
             {
                 plate.transform.position = transform.position + (CameraSwitcher.main.useMain ? 1 : 2) * Vector3.up;
-                plate.text = name + ": " + GetComponent<MeshSimplify>().m_fVertexAmount;
+                plate.text = name + ": " + vertexCount;
                 plate.transform.rotation = Quaternion.LookRotation(CameraSwitcher.main.ActiveCam.position - plate.transform.position, CameraSwitcher.main.ActiveCam.up);
             }
 
@@ -166,10 +163,17 @@ namespace ThingSpace
         void ChangeVertexAmount(Thing who, float change)
         {
 
+           
             var runtimeSimplifier = who.GetComponent<RuntimeMeshSimplifier>();
             who.vertexPercentage = Mathf.Clamp(who.vertexPercentage + change, 0.03f, 1f);
             //Debug.LogFormat("{0} now will have {1}% vertices, changed {2}", who.name, who.vertexPercentage * 100, change);
             runtimeSimplifier.Simplify(who.vertexPercentage * 100);
+
+            if (who == this)
+            {
+                vertexCount = GetComponent<MeshFilter>().mesh.vertexCount;
+            }
+
         }
 
         public void Steal(Thing another)
