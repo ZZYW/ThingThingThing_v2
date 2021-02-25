@@ -7110,7 +7110,7 @@ GameObject:
   - component: {fileID: 1775498420}
   - component: {fileID: 1775498419}
   m_Layer: 5
-  m_Name: (0,0,0)
+  m_Name: Thing Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
