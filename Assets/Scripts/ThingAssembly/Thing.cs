@@ -163,7 +163,7 @@ namespace ThingSpace
             {
                 plate.transform.position = transform.position + (CameraSwitcher.main.useMain ? 1 : 2) * Vector3.up;
                 plate.text = name + ": " + vertexCount;
-                plate.transform.rotation = Quaternion.LookRotation(CameraSwitcher.main.ActiveCam.position - plate.transform.position, CameraSwitcher.main.ActiveCam.up);
+                plate.transform.rotation = Quaternion.LookRotation(plate.transform.position - CameraSwitcher.main.ActiveCam.position , CameraSwitcher.main.ActiveCam.up);
             }
 
 
