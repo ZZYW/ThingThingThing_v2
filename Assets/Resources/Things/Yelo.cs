@@ -11,15 +11,15 @@ namespace ThingSpace
             color = new Color(0.1f, 1, 1);
         }
 
-        public override void IntervalAction(Thing closestThing)
+        public override void IntervalAction(Thing other)
         {
-            Clone(closestThing);
+            Clone(other);
         }
 
         public override void OnTouch(Thing other)
         {
 
-
+            Seek(other);
             // Erase(other);
 
 

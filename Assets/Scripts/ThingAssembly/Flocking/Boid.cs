@@ -10,7 +10,7 @@ namespace ThingSpace
         public float sepWeight = 1;
         public float aliWeight = 1;
         public float cohWeight = 1;
-        public float seekWeight = 1;
+        public float seekWeight = 10;
         public float repellerWeight = 1;
         public Rigidbody rb
         {

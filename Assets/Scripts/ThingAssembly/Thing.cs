@@ -148,7 +148,7 @@ namespace ThingSpace
         public void Steal(Thing another)
         {
 
-            if (another == null || another == this || inCD) return;
+            if (another == null || another == this || inCD || !another.gameObject.activeInHierarchy || !this.gameObject.activeInHierarchy) return;
             Debug.Log(name + " steal " + another.name);
 
             ChangeVertexAmount(another, -0.1f);
@@ -162,7 +162,7 @@ namespace ThingSpace
         public void Gift(Thing another)
         {
 
-            if (another == null || another == this || inCD) return;
+            if (another == null || another == this || inCD || !another.gameObject.activeInHierarchy || !this.gameObject.activeInHierarchy) return;
 
             ChangeVertexAmount(another, +0.1f);
             ChangeVertexAmount(this, -0.1f);
@@ -176,29 +176,29 @@ namespace ThingSpace
             inCD = true;
         }
 
-        public void Stick(Thing another)
-        {
-            if (another == null || another == this || inCD) return;
-            if (attached) return;
-            Debug.Log(name + " stick " + another.name);
-            //Follow, attach onto another thing for a limited period of time;
-            transform.position = another.transform.position + another.transform.GetComponent<Collider>().bounds.extents.x * (transform.position - another.transform.position).normalized;
-            motor.rb.velocity = Vector3.zero;
-            //create a new joint to connect
-            var myJoint = gameObject.GetComponent<CharacterJoint>();
-            if (myJoint == null) myJoint = gameObject.AddComponent<CharacterJoint>();
-            //connect to rb
-            myJoint.connectedBody = another.motor.rb;
-            if (ThingGod.StickEvent != null) ThingGod.StickEvent(this, another);
-            attached = true;
-            //release        
-            Invoke("ReleaseSticking", 10);
-            inCD = true;
-        }
+        //public void Stick(Thing another)
+        //{
+        //    if (another == null || another == this || inCD) return;
+        //    if (attached) return;
+        //    Debug.Log(name + " stick " + another.name);
+        //    //Follow, attach onto another thing for a limited period of time;
+        //    transform.position = another.transform.position + another.transform.GetComponent<Collider>().bounds.extents.x * (transform.position - another.transform.position).normalized;
+        //    motor.rb.velocity = Vector3.zero;
+        //    //create a new joint to connect
+        //    var myJoint = gameObject.GetComponent<CharacterJoint>();
+        //    if (myJoint == null) myJoint = gameObject.AddComponent<CharacterJoint>();
+        //    //connect to rb
+        //    myJoint.connectedBody = another.motor.rb;
+        //    if (ThingGod.StickEvent != null) ThingGod.StickEvent(this, another);
+        //    attached = true;
+        //    //release        
+        //    Invoke("ReleaseSticking", 10);
+        //    inCD = true;
+        //}
 
         public void Clone(Thing another)
         {
-            if (another == null || another == this || inCD) return;
+            if (another == null || another == this || inCD || !another.gameObject.activeInHierarchy || !this.gameObject.activeInHierarchy) return;
             if (!CloneRegulator.instance.canClone) return;
             var cloneLayer = Regex.Matches(another.gameObject.name, "(Clone)").Count;
             if (cloneLayer > 5) return;
@@ -211,7 +211,7 @@ namespace ThingSpace
 
         public void Erase(Thing another)
         {
-            if (another == null || another == this || inCD) return;
+            if (another == null || another == this || inCD || !another.gameObject.activeInHierarchy || !this.gameObject.activeInHierarchy) return;
             Debug.Log(name + " kill " + another.name);
             ThingGod.god.TryErase(another);
             if (ThingGod.EraseEvent != null) ThingGod.EraseEvent(this, another);
@@ -220,6 +220,8 @@ namespace ThingSpace
 
         public void Group(Thing another)
         {
+            if (another == null || another == this || inCD || !another.gameObject.activeInHierarchy || !this.gameObject.activeInHierarchy) return;
+
             motor.cohWeight *= 3f;
             motor.aliWeight *= 3f;
             motor.seekWeight /= 3f;
@@ -227,6 +229,8 @@ namespace ThingSpace
 
         public void Hide(Thing another)
         {
+            if (another == null || another == this || inCD || !another.gameObject.activeInHierarchy || !this.gameObject.activeInHierarchy) return;
+
             motor.cohWeight /= 3f;
             motor.aliWeight /= 3f;
             motor.seekWeight *= 3f;
@@ -234,7 +238,7 @@ namespace ThingSpace
 
         public void Seek(Thing another)
         {
-            if (another == null || another == this) return;
+            if (another == null || another == this || inCD || !another.gameObject.activeInHierarchy || !this.gameObject.activeInHierarchy) return;
             //Aim, walk towards the direction of a shan, an er, a monolith, or the tuli mountain. 
             motor.target = another.transform;
             if (ThingGod.SeekEvent != null) ThingGod.SeekEvent(this, another);
@@ -242,15 +246,15 @@ namespace ThingSpace
         }
 
 
-        void ReleaseSticking()
-        {
-            attached = false;
-            var joints = GetComponents<Joint>();
-            for (int i = 0; i < joints.Length; i++)
-            {
-                Destroy(joints[i]);
-            }
-        }
+        //void ReleaseSticking()
+        //{
+        //    attached = false;
+        //    var joints = GetComponents<Joint>();
+        //    for (int i = 0; i < joints.Length; i++)
+        //    {
+        //        Destroy(joints[i]);
+        //    }
+        //}
 
         void ReleaseTarget()
         {

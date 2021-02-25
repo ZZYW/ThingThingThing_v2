@@ -49,15 +49,15 @@ namespace ThingSpace
         }
 
 
-        public void TestStick()
-        {
-            var a = GetRandomThing();
-            var b = GetClosestThing(a);
-            if (b != null)
-            {
-                a.Stick(b);
-            }
-        }
+        //public void TestStick()
+        //{
+        //    var a = GetRandomThing();
+        //    var b = GetClosestThing(a);
+        //    if (b != null)
+        //    {
+        //        a.Stick(b);
+        //    }
+        //}
 
 
         public void TestErase()
