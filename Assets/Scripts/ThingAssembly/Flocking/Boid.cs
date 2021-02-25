@@ -21,7 +21,7 @@ namespace ThingSpace
         }
 
         public float maxForceSq = 100;    // Maximum steering force
-        public float maxSpeed = 10;   // Maximum speed
+        public float speed = 10;   // Maximum speed
         public bool inEffect = true;
 
         Vector3 finalForce = Vector3.zero;
@@ -33,15 +33,6 @@ namespace ThingSpace
         {
             if (!initialized) InitParas();
         }
-
-        public void SetMass(float m)
-        {
-            rb.mass = m;
-        }
-        public void SetMaxSpeed(float ms)
-        {
-            maxSpeed = ms;
-        }
         
         public void InitParas()
         {
@@ -50,7 +41,7 @@ namespace ThingSpace
             aliWeight += Random.Range(-0.2f, 0.2f);
             cohWeight += Random.Range(-0.2f, 0.2f);
             seekWeight += Random.Range(-0.2f, 0.2f);
-            maxSpeed += Random.Range(-4f, 4f);
+            speed += Random.Range(-4f, 4f);
             maxForceSq += Random.Range(-20f, 20f);
             rb.velocity = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
             rb.useGravity = true;
@@ -85,19 +76,29 @@ namespace ThingSpace
             finalForce += ali;
             finalForce += coh;
             finalForce += seek;
-
-
-
-
         }
 
         private void Update()
         {
             if (!inEffect) return;
+
+
+            for (int i = 0; i < ThingGod.god.flock.Count; i++)
+            {
+                if (ThingGod.god.flock[i] == null) ThingGod.god.flock.RemoveAt(i);
+            }
+
+
             //reset finalforce
             finalForce = Vector3.zero;
             var boidList = ThingGod.god.flock.Select(i => i.GetComponent<Boid>()).ToList();
+           
             Flock(boidList);
+
+            if (target != null)
+            {
+                if (target.GetComponent<Thing>() == null) target = null;
+            }
         }
 
         // // Method to update transform.position
@@ -123,7 +124,7 @@ namespace ThingSpace
             Vector3 desired = target - transform.position;  // A vector pointing from the transform.position to the target
                                                             // Normalize desired and scale to maximum speed
             desired.Normalize();
-            desired *= maxSpeed;
+            desired *= speed;
             // Steering = Desired minus Velocity
             Vector3 steer = desired - rb.velocity;
             while (steer.sqrMagnitude > maxForceSq)
@@ -167,7 +168,7 @@ namespace ThingSpace
             {
                 // Implement Reynolds: Steering = Desired - Velocity
                 steer.Normalize();
-                steer *= maxSpeed;
+                steer *= speed;
                 steer -= rb.velocity;
                 while (steer.sqrMagnitude > maxForceSq)
                 {
@@ -199,7 +200,7 @@ namespace ThingSpace
             {
                 sum /= (float)count;
                 sum.Normalize();
-                sum *= maxSpeed;
+                sum *= speed;
                 Vector3 steer = sum - rb.velocity;
                 while (steer.sqrMagnitude > maxForceSq)
                 {

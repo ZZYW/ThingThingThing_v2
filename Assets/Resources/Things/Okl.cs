@@ -4,11 +4,11 @@ namespace ThingSpace
     public class Okl : Thing
     {
         public override void Init()
-        {
-            motor.SetMass(1);
-            motor.SetMaxSpeed(1);
-            motor.aliWeight = 1;
-            color = new Color(0,0.2f,0.4f);
+        {          
+            speed = 1;
+            red = Random.value;
+            green = Random.value;
+            blue = Random.value;
         }
 
         public override void IntervalAction(Thing other)

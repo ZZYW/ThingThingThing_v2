@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.017
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
-  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientSkyColor: {r: 0, g: 0, b: 1, a: 1}
+  m_AmbientEquatorColor: {r: 1, g: 1, b: 1, a: 1}
+  m_AmbientGroundColor: {r: 0, g: 0.9323077, b: 1, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 1, g: 1, b: 1, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 3953cf6db3a29459a90cc90efc3f7ff7, type: 2}
   m_HaloStrength: 0.491
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 1.3313152, g: 1.1563613, b: 0.34473196, a: 1}
+  m_IndirectSpecularColor: {r: 1.3313136, g: 1.1563598, b: 0.34473136, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -182,6 +182,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   thingMat: {fileID: 2100000, guid: 7d846646bfb634bcaa5ba29d692d9451, type: 2}
+  deadMat: {fileID: 2100000, guid: d391f6280c9534aa59391909f6df9de0, type: 2}
   plateSample: {fileID: 1775498419}
 --- !u!4 &175367765
 Transform:
@@ -1359,7 +1360,7 @@ MonoBehaviour:
   circlingSpeed: 0.0005
   circleR: 20
   yLevel: 20
-  offsetMovingSpeed: {x: 8, y: 0, z: 8}
+  offsetMovingSpeed: {x: 1, y: 0, z: 1}
   noiseSeedXIncremental: 0.005
   noiseSeedYIncremental: 0.005
   noiseSeedZIncremental: 0.005
@@ -1402,8 +1403,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshIndex: 0
-  color: {r: 0, g: 0, b: 0, a: 0}
-  cdLength: 1
+  width: 1
+  height: 1
+  depth: 1
+  speed: 1
+  seperation: 1
+  cohesion: 1
+  red: 1
+  green: 1
+  blue: 1
+  attached: 0
   vertexPercentage: 1
   plate: {fileID: 0}
 --- !u!114 &1030802102
@@ -1530,7 +1539,7 @@ MonoBehaviour:
   seekWeight: 1
   repellerWeight: 1
   maxForceSq: 100
-  maxSpeed: 10
+  speed: 10
   inEffect: 1
   target: {fileID: 0}
 --- !u!54 &1030802108
@@ -1702,9 +1711,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 2
+  m_AntialiasingQuality: 1
   m_StopNaN: 0
   m_Dithering: 0
   m_ClearDepth: 1
@@ -7101,7 +7110,7 @@ GameObject:
   - component: {fileID: 1775498420}
   - component: {fileID: 1775498419}
   m_Layer: 5
-  m_Name: Text
+  m_Name: (0,0,0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7147,7 +7156,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 5a5827580f2a04cb9be5917d94b20271, type: 3}
+    m_Font: {fileID: 12800000, guid: 6ab3d280869ac441e81253e133f18c4a, type: 3}
     m_FontSize: 4
     m_FontStyle: 0
     m_BestFit: 0
@@ -7159,7 +7168,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 234
+  m_Text: (0,0,0)
 --- !u!222 &1775498420
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -5,10 +5,12 @@ namespace ThingSpace
     {
         public override void Init()
         {
-            motor.SetMass(0.2f);
-            motor.SetMaxSpeed(3);
-            motor.aliWeight = 1;
-            color = new Color(0.1f, 1, 1);
+            speed = 3;
+            cohesion = 2;
+            red = Random.value;
+            green = Random.value;
+            blue = Random.value;
+
         }
 
         public override void IntervalAction(Thing other)

@@ -14,18 +14,22 @@ namespace ThingSpace
     [RequireComponent(typeof(RuntimeMeshSimplifier))]
     public abstract class Thing : MonoBehaviour
     {
-
-
-        public int meshIndex;
-        public Color color;
-        Color accentColor;
-        bool inCD;
-        public float cdLength = 0.5f;
-
         public Boid motor
         {
             get { return GetComponent<Boid>(); }
         }
+
+        bool inCD;
+        float cdLength = 0.25f;
+
+        //child class will change those:
+        public int meshIndex;
+        public double width = 1, height = 1, depth = 1, speed = 1, seperation = 1, cohesion = 1, red = 1, green = 1, blue = 1;
+        ///....................................
+        Color color;
+        Color accentColor;
+
+
 
 
         public bool attached;
@@ -71,14 +75,23 @@ namespace ThingSpace
 
 
         //MONOBEHAVIOUR///////////////////////////////////////
-        void Start()
+
+
+        private void Awake()
         {
+            StopAllCoroutines();
             Init();
+        }
 
-            //test
+        void Start()
+        {            
 
-            if (GetComponent<MeshFilter>().sharedMesh == null)
+            bool isOriginal = GetComponent<MeshFilter>().sharedMesh == null;
+
+            if (isOriginal)
             {
+               
+
                 meshIndex = (int)(Random.value * ThingGod.god.availableModels.Count);
 
                 var mesh = ThingGod.god.availableModels[meshIndex].GetComponentInChildren<MeshFilter>().sharedMesh;
@@ -86,6 +99,8 @@ namespace ThingSpace
                 GetComponent<MeshRenderer>().material = ThingGod.god.thingMat;
                 var myMat = GetComponent<MeshRenderer>().material;
                 //calculate accent color
+                //set color
+                color = new Color((float)red, (float)green, (float)blue);
                 float h, s, v;
                 Color.RGBToHSV(color, out h, out s, out v);
                 accentColor = Color.HSVToRGB((((h * 360) + 180f) % 360) / 360f, Mathf.Clamp01(s / 2f), Mathf.Clamp01(v / 2f));
@@ -97,7 +112,14 @@ namespace ThingSpace
                 var collider = GetComponent<MeshCollider>();
                 collider.sharedMesh = mesh;
                 collider.convex = true;
+
+                //set size
+                gameObject.transform.localScale = new Vector3((float)width, (float)height, (float)depth);
+               
+
             }
+
+
 
             StartCoroutine(IntervalBasedActions());
             StartCoroutine(ResetCD());
@@ -123,6 +145,11 @@ namespace ThingSpace
                 plate.text = name + ": " + GetComponent<MeshSimplify>().m_fVertexAmount;
                 plate.transform.rotation = Quaternion.LookRotation(CameraSwitcher.main.ActiveCam.position - plate.transform.position, CameraSwitcher.main.ActiveCam.up);
             }
+
+
+            motor.speed = (float)speed;
+            motor.cohWeight = (float)cohesion;
+            motor.seekWeight = (float)seperation;
         }
 
 
@@ -141,7 +168,7 @@ namespace ThingSpace
 
             var runtimeSimplifier = who.GetComponent<RuntimeMeshSimplifier>();
             who.vertexPercentage = Mathf.Clamp(who.vertexPercentage + change, 0.03f, 1f);
-            Debug.LogFormat("{0} now will have {1}% vertices, changed {2}", who.name, who.vertexPercentage * 100, change);
+            //Debug.LogFormat("{0} now will have {1}% vertices, changed {2}", who.name, who.vertexPercentage * 100, change);
             runtimeSimplifier.Simplify(who.vertexPercentage * 100);
         }
 
@@ -212,8 +239,13 @@ namespace ThingSpace
         public void Erase(Thing another)
         {
             if (another == null || another == this || inCD || !another.gameObject.activeInHierarchy || !this.gameObject.activeInHierarchy) return;
-            Debug.Log(name + " kill " + another.name);
-            ThingGod.god.TryErase(another);
+            Debug.Log(name + " Erase " + another.name);
+
+            Destroy(another.plate.gameObject);
+            Destroy(another.GetComponent<Thing>());
+            Destroy(another.GetComponent<Boid>());
+            Destroy(another.GetComponent<RuntimeMeshSimplifier>());
+            Destroy(another.GetComponent<MeshSimplify>());
             if (ThingGod.EraseEvent != null) ThingGod.EraseEvent(this, another);
             inCD = true;
         }
@@ -242,7 +274,6 @@ namespace ThingSpace
             //Aim, walk towards the direction of a shan, an er, a monolith, or the tuli mountain. 
             motor.target = another.transform;
             if (ThingGod.SeekEvent != null) ThingGod.SeekEvent(this, another);
-            Invoke("ReleaseTarget", 15f);
         }
 
 
@@ -255,11 +286,6 @@ namespace ThingSpace
         //        Destroy(joints[i]);
         //    }
         //}
-
-        void ReleaseTarget()
-        {
-            motor.target = null;
-        }
 
         Thing GetClosestThing(Thing center)
         {

@@ -5,15 +5,21 @@ namespace ThingSpace
     {
         public override void Init()
         {
-            motor.SetMass(10);
-            motor.SetMaxSpeed(5);
-            motor.sepWeight = 4;
-            color = new Color(1,0,0);            
+            speed = 5;
+            seperation = 4;
+
+            width = 3;
+            height = 1;
+            depth = 0.4;
+
+            red = 0.3;
+            green = 1;
+            blue = 0.2;
         }
 
         public override void IntervalAction(Thing other)
         {
-            Seek(other);
+          
         }
 
         public override void OnTouch(Thing other)

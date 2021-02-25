@@ -21,6 +21,7 @@ namespace ThingSpace
 
         public List<GameObject> availableModels = new List<GameObject>();
         public Material thingMat;
+        public Material deadMat;
         public UnityEngine.UI.Text plateSample;
 
         void Awake()
@@ -62,6 +63,9 @@ namespace ThingSpace
 
         void OnErase(Thing actor, Thing receiver)
         {
+            things.Remove(receiver);
+            flock.Remove(receiver);
+            receiver.GetComponent<MeshRenderer>().sharedMaterial = deadMat;
             FireEraseParticle(actor.transform.position);
             //receiver.DecreaseScore(2, actor);
         }
@@ -142,24 +146,24 @@ namespace ThingSpace
 
         /////////////////////////////////////////////////////////////////////////////////
 
-        public IEnumerator EraseThingEnum(Thing receiver)
-        {
-            receiver.gameObject.SetActive(false);
-            receiver.dead = true;
-            yield return new WaitForSeconds(10);
-            //respawn
-            // receiver.Tuli = initialTuli;
-            receiver.gameObject.SetActive(true);
-            receiver.gameObject.transform.position = SpawnPos();
-            receiver.gameObject.transform.Translate(Vector3.up);
-            receiver.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero - receiver.transform.position;
-            receiver.ResetFlags();
-        }
+        //public IEnumerator EraseThingEnum(Thing receiver)
+        //{
+        //    receiver.gameObject.SetActive(false);
+        //    receiver.dead = true;
+        //    yield return new WaitForSeconds(10);
+        //    //respawn
+        //    // receiver.Tuli = initialTuli;
+        //    receiver.gameObject.SetActive(true);
+        //    receiver.gameObject.transform.position = SpawnPos();
+        //    receiver.gameObject.transform.Translate(Vector3.up);
+        //    receiver.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero - receiver.transform.position;
+        //    receiver.ResetFlags();
+        //}
 
-        internal void TryErase(Thing another)
-        {
-            StartCoroutine(EraseThingEnum(another));
-        }
+        //internal void TryErase(Thing another)
+        //{
+        //    StartCoroutine(EraseThingEnum(another));
+        //}
 
         public void CloneThing(Thing template, Vector3 pos, Vector3 scale)
         {
@@ -168,8 +172,6 @@ namespace ThingSpace
             newOne.transform.localScale = scale;
             newOne.GetComponent<Thing>().ResetFlags();
             if (ThingBornEvent != null) ThingBornEvent(newOne.GetComponent<Thing>());
-
-            Debug.Log("clone has coh weight ->" + newOne.GetComponent<Thing>().motor.cohWeight);
         }
 
         public void AddToFlock(Thing t)
@@ -193,22 +195,6 @@ namespace ThingSpace
             //   return monoliths[Random.Range(0, monoliths.Length)].transform.position;
         }
 
-        public void CreateThings(ThingDataManager.ThingsSettings settings)
-        {
-            //TODO
-            // var newOne = GameObject.Instantiate(agent, SpawnPos(), Quaternion.identity).AddComponent<Thing>();
-            // //apply settings
-            // newOne.intervalActions = new string[] { setting.intervalAction };
-            // newOne.touchActions = new string[] { setting.touchAction };
-            // newOne.motor.SetMass(setting.mass);
-            // newOne.motor.SetMaxSpeed(setting.maxSpeed);
-            // newOne.name = setting.name;
-            //...
-
-
-            // if (ThingBornEvent != null) ThingBornEvent(newOne);
-
-        }
 
 
 
