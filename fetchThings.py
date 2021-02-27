@@ -3,7 +3,7 @@ from firebase_admin import credentials
 from firebase_admin import storage
 import os
 
-cred = credentials.Certificate(os.path.join(os.getcwd(),"thingthingthing-script-input-firebase-adminsdk-ws02f-f77579a5d6.json"))
+cred = credentials.Certificate(os.path.join(os.getcwd(),"thingthingthing-script-input-firebase-adminsdk-ws02f-f462ba8163.json"))
 firebase_admin.initialize_app(cred, {
     'storageBucket': 'thingthingthing-script-input.appspot.com'
 })

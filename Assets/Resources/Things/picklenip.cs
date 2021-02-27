@@ -1,12 +1,13 @@
+
 using UnityEngine;
 namespace ThingSpace
 {
-    public class Sample : Thing
+    public class picklenip : Thing
     {
         public override void Init()
         {
             //you can assign those variables value here:
-            meshIndex = -1;
+            meshIndex = 3;
 
             speed = 5;
             seperation = 0.1;
@@ -53,3 +54,5 @@ namespace ThingSpace
 
     }
 }
+
+            

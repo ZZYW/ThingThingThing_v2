@@ -5,20 +5,25 @@ using RoslynCSharp;
 using System.IO;
 using UnityEngine.UI;
 
+#if !UNITY_WEBGL
 namespace ThingSpace
 {
+
     public class ThingMaker : MonoBehaviour
     {
+
+
+
         private ScriptDomain domain = null;
         public AssemblyReferenceAsset[] assemblyReferences;
         public string thingScriptDirectoryPath;
 
         public float spawnAreaRadius = 10;
-       
+
 
         public bool useCubeAsMesh;
 
-  
+
 
         // Start is called before the first frame update
         void Start()
@@ -65,19 +70,20 @@ namespace ThingSpace
             //reset new thing's position
             go.transform.position = Random.insideUnitSphere * spawnAreaRadius;
 
-          
-                   
+
+
 
             if (ThingGod.ThingBornEvent != null) ThingGod.ThingBornEvent(newThing);
             return newThing;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
 
-        }
 
-    
+
+
+
+
     }
 }
+
+#endif

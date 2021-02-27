@@ -29,7 +29,7 @@ namespace ThingSpace
         {
             god = this;
             availableModels = Resources.LoadAll<GameObject>(modelPath).ToList();
-            Debug.Log(availableModels.Count);
+            //Debug.Log(availableModels.Count);
             availableModels.RemoveAll(i => i == null);
         }
 
@@ -110,7 +110,7 @@ namespace ThingSpace
             things.Add(t);
             flock.Add(t);
             FireBornParticle(t.transform.position);
-            Debug.Log("new thing " + t.name + " is born.");
+            //Debug.Log("new thing " + t.name + " is born.");
             //create a overhead text for it
             t.plate = getNewPlateText();
 
@@ -228,7 +228,7 @@ namespace ThingSpace
             {
                 if ((thing.transform.position - Vector3.zero).sqrMagnitude > 1000)
                 {
-                    Debug.Log("reset " + thing.name + "'s position to 000");
+                    //Debug.Log("reset " + thing.name + "'s position to 000");
                     var rb = thing.GetComponent<Rigidbody>();
                     var delta = rb.position - Vector3.zero;
 
