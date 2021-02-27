@@ -81,14 +81,14 @@ namespace ThingSpace
 
         void Start()
         {
-
+          
             bool isOriginal = GetComponent<MeshFilter>().sharedMesh == null;
 
             if (isOriginal)
             {
 
 
-
+                gameObject.name = this.GetType().Name;
                 if (meshIndex < 0 || meshIndex >= ThingGod.god.availableModels.Count) meshIndex = (int)(UnityEngine.Random.value * ThingGod.god.availableModels.Count);
                 var mesh = ThingGod.god.availableModels[meshIndex].GetComponentInChildren<MeshFilter>().sharedMesh;
                 GetComponent<MeshFilter>().mesh = mesh;
@@ -203,7 +203,7 @@ namespace ThingSpace
         {
 
             if (another == null || another == this || inCD || !another.gameObject.activeInHierarchy || !this.gameObject.activeInHierarchy) return;
-            Debug.Log(name + " steal " + another.name);
+            //Debug.Log(name + " steal " + another.name);
 
             ChangeVertexAmount(another, -0.1f);
             ChangeVertexAmount(this, 0.1f);
@@ -223,7 +223,7 @@ namespace ThingSpace
 
             // another.Tuli += Tuli;
             // Tuli = 0;
-            Debug.Log(name + " gift " + another.name);
+            //Debug.Log(name + " gift " + another.name);
             if (ThingGod.GiftingEvent != null) ThingGod.GiftingEvent(this, another);
             //Gifting, voluntarily transform one’s own Tulis to others;
 
@@ -256,7 +256,7 @@ namespace ThingSpace
             if (!CloneRegulator.instance.canClone) return;
             var cloneLayer = Regex.Matches(another.gameObject.name, "(Clone)").Count;
             if (cloneLayer > 5) return;
-            Debug.Log(name + " mate " + another.name);
+            //Debug.Log(name + " mate " + another.name);
             ThingGod.god.CloneThing(another, transform.position, another.transform.localScale * 0.9f);
             if (ThingGod.CloneEvent != null) ThingGod.CloneEvent(this, another);
             //Mate, give birth to a baby that resembles other thing;
@@ -266,7 +266,7 @@ namespace ThingSpace
         public void Erase(Thing another)
         {
             if (another == null || another == this || inCD || !another.gameObject.activeInHierarchy || !this.gameObject.activeInHierarchy) return;
-            Debug.Log(name + " Erase " + another.name);
+            //Debug.Log(name + " Erase " + another.name);
 
             Destroy(another.plate.gameObject);
             Destroy(another.GetComponent<Thing>());
