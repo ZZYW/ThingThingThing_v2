@@ -69,3 +69,8 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+
+/*.dll
+/*.dll.pdb
+thingthingthing-script-input-firebase-adminsdk-ws02f-f77579a5d6.json
