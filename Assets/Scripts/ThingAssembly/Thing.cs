@@ -10,8 +10,7 @@ namespace ThingSpace
 {
     [RequireComponent(typeof(Boid))]
     [RequireComponent(typeof(MeshRenderer))]
-    [RequireComponent(typeof(MeshFilter))]
-    [RequireComponent(typeof(MeshCollider))]
+    [RequireComponent(typeof(MeshFilter))]    
     [RequireComponent(typeof(RuntimeMeshSimplifier))]
     public abstract class Thing : MonoBehaviour
     {
@@ -128,9 +127,11 @@ namespace ThingSpace
 
 
                 //collider
-                var collider = GetComponent<MeshCollider>();
-                collider.sharedMesh = mesh;
-                collider.convex = true;
+                if (GetComponent<BoxCollider>() == null)
+                {
+                    gameObject.AddComponent<BoxCollider>();
+                }
+                
 
                 //set size
                 gameObject.transform.localScale = new Vector3((float)width, (float)height, (float)depth);
