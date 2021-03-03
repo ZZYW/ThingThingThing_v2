@@ -1,3 +1,4 @@
+#if !UNITY_WEBGL
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using RoslynCSharp;
 using System.IO;
 using UnityEngine.UI;
 
-#if !UNITY_WEBGL
+
 namespace ThingSpace
 {
 
