@@ -25,6 +25,8 @@ namespace ThingSpace
         public Material deadMat;
         public UnityEngine.UI.Text plateSample;
 
+        public AudioClip[] audioClips;
+
         void Awake()
         {
             god = this;

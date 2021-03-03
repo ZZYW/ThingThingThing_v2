@@ -81,7 +81,7 @@ namespace ThingSpace
 
         void Start()
         {
-          
+
             bool isOriginal = GetComponent<MeshFilter>().sharedMesh == null;
 
             if (isOriginal)
@@ -163,7 +163,7 @@ namespace ThingSpace
             {
                 plate.transform.position = transform.position + (CameraSwitcher.main.useMain ? 1 : 2) * Vector3.up;
                 plate.text = name + ": " + vertexCount;
-                plate.transform.rotation = Quaternion.LookRotation(plate.transform.position - CameraSwitcher.main.ActiveCam.position , CameraSwitcher.main.ActiveCam.up);
+                plate.transform.rotation = Quaternion.LookRotation(plate.transform.position - CameraSwitcher.main.ActiveCam.position, CameraSwitcher.main.ActiveCam.up);
             }
 
 
@@ -336,7 +336,8 @@ namespace ThingSpace
 
                 if (!dead && !attached)
                 {
-                    IntervalAction(GetClosestThing(this));
+                    var closest = GetClosestThing(this);
+                    if (closest != null) IntervalAction(GetClosestThing(this));
                     yield return new WaitForSeconds(5);
                 }
 

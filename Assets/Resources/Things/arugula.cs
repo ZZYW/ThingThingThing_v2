@@ -27,7 +27,7 @@ namespace ThingSpace
         }
 
         public override void IntervalAction(Thing other)
-        {
+        {    
             if(other.vertexCount > 10) {
                 Seek(other);
             }
