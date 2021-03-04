@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b0647a64011ca9489f8291ba5dbafd4, type: 3}
-  m_Name: NewDebugViewFeature
+  m_Name: Data
   m_EditorClassIdentifier: 
   m_Active: 1
 --- !u!114 &11400000
@@ -26,9 +26,9 @@ MonoBehaviour:
   m_Name: UniversalRenderPipelineAsset_Renderer
   m_EditorClassIdentifier: 
   m_RendererFeatures:
-  - {fileID: 3384245614404091539}
   - {fileID: -2965636423468747290}
-  m_RendererFeatureMap: 93be3aaf7441f72ee6752fae62f1d7d6
+  - {fileID: 3384245614404091539}
+  m_RendererFeatureMap: e6752fae62f1d7d693be3aaf7441f72e
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
   shaders:

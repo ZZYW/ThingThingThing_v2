@@ -63,6 +63,8 @@ namespace ThingSpace
         {
             FireStealParticle(actor.transform.position);
             //receiver.DecreaseScore(1, actor);
+            receiver.audioSource.clip = audioClips[0];
+            receiver.audioSource.Play();
 
         }
 
@@ -84,23 +86,31 @@ namespace ThingSpace
             //receiver.GetComponent<MeshRenderer>().sharedMaterials = 
             FireEraseParticle(actor.transform.position);
             //receiver.DecreaseScore(2, actor);
+
+            receiver.audioSource.clip = audioClips[1];
+            receiver.audioSource.Play();
         }
 
         void OnClone(Thing actor, Thing receiver)
         {
             CloneRegulator.instance.Cloned();
             //receiver.IncreaseScore(2, actor);
+            receiver.audioSource.clip = audioClips[2];
+            receiver.audioSource.Play();
         }
 
         void OnGifting(Thing actor, Thing receiver)
         {
             FireGiftingParticle(actor.transform.position);
+            receiver.audioSource.clip = audioClips[3];
+            receiver.audioSource.Play();
             //receiver.IncreaseScore(1, actor);
         }
 
         void OnSeek(Thing actor, Thing receiver)
         {
-
+            receiver.audioSource.clip = audioClips[4];
+            receiver.audioSource.Play();
         }
         void OnStick(Thing actor, Thing receiver)
         {

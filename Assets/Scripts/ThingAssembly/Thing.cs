@@ -12,6 +12,7 @@ namespace ThingSpace
     [RequireComponent(typeof(MeshRenderer))]
     [RequireComponent(typeof(MeshFilter))]    
     [RequireComponent(typeof(RuntimeMeshSimplifier))]
+    [RequireComponent(typeof(AudioSource))]
     public abstract class Thing : MonoBehaviour
     {
         public Boid motor
@@ -29,7 +30,7 @@ namespace ThingSpace
         Color color;
         Color accentColor;
 
-
+        public AudioSource audioSource { get; private set; }
 
 
         public bool attached;
@@ -136,10 +137,11 @@ namespace ThingSpace
                 //set size
                 gameObject.transform.localScale = new Vector3((float)width, (float)height, (float)depth);
 
-
+                
             }
 
-
+            audioSource = GetComponent<AudioSource>();
+            audioSource.spatialBlend = 1.0f;
 
             StartCoroutine(IntervalBasedActions());
             StartCoroutine(ResetCD());
