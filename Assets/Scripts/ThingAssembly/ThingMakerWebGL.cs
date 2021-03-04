@@ -6,7 +6,7 @@ using ThingSpace;
 
 public class ThingMakerWebGL : MonoBehaviour
 {
-#if UNITY_WEBGL
+
     public string prefabFolderPath = "ThingPrefabs";
     public float spawnAreaRadius = 10;
     public float bornRate = 0.2f;
@@ -26,8 +26,8 @@ public class ThingMakerWebGL : MonoBehaviour
 
     IEnumerator CreateNewThings()
     {
-        //var allPrefabs = Resources.LoadAll<GameObject>(prefabFolderPath);
-        foreach(var prefab in allPrefabs)
+        var allPrefabs = Resources.LoadAll<GameObject>(prefabFolderPath);
+        foreach (var prefab in allPrefabs)
         {
             var go = GameObject.Instantiate(prefab);
             //reset new thing's position
@@ -37,5 +37,5 @@ public class ThingMakerWebGL : MonoBehaviour
             yield return new WaitForSeconds(bornRate);
         }
     }
-#endif
+
 }

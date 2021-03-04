@@ -209,6 +209,13 @@ MonoBehaviour:
   thingMat: {fileID: 2100000, guid: 7d846646bfb634bcaa5ba29d692d9451, type: 2}
   deadMat: {fileID: 2100000, guid: d391f6280c9534aa59391909f6df9de0, type: 2}
   plateSample: {fileID: 1775498419}
+  audioClips:
+  - {fileID: 8300000, guid: 72fdb35dc0a52491e9ca84a54a780de1, type: 3}
+  - {fileID: 8300000, guid: 6c0f92b04f7b44453a2ced055b9f5dbd, type: 3}
+  - {fileID: 8300000, guid: 382f81906ae294c2c821968b06e88bda, type: 3}
+  - {fileID: 8300000, guid: ef4471cf8662b4d22859ccb9d2275724, type: 3}
+  - {fileID: 8300000, guid: 4a2a89588cc62470a914b2c99f8062a3, type: 3}
+  - {fileID: 8300000, guid: 143608f98b84e4e39a8710bd992481be, type: 3}
 --- !u!4 &175367765
 Transform:
   m_ObjectHideFlags: 0
@@ -634,10 +641,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b03e1f1614a5407a95cf73be2768dd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circlingSpeed: 0.0005
-  circleR: 20
-  yLevel: 20
-  offsetMovingSpeed: {x: 1, y: 0, z: 1}
+  circlingSpeed: 0.0001
+  circleR: 34.7
+  yLevel: 10
+  offsetMovingSpeed: {x: 0.01, y: 0, z: 0.01}
   noiseSeedXIncremental: 0.005
   noiseSeedYIncremental: 0.005
   noiseSeedZIncremental: 0.005
@@ -861,20 +868,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110976138}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e71c1cea900fe4d5e808bb6a95053e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  assemblyReferences:
-  - {fileID: 11400000, guid: 268b3bc8c5ded422e82fdf0f6bfda713, type: 2}
-  - {fileID: 11400000, guid: 3a471afdf33b8a24b842b92e9d7b3ee3, type: 2}
-  - {fileID: 11400000, guid: a1c9628d65ee91440a328850888fb21e, type: 2}
-  - {fileID: 11400000, guid: 93cd16b8945e2b74cb3101170cee91dd, type: 2}
-  - {fileID: 11400000, guid: eee75363a127d4e43acec7a183e8ba84, type: 2}
-  - {fileID: 11400000, guid: fe24fc97048e2974787cc8d5328fa171, type: 2}
-  thingScriptDirectoryPath: Assets/Resources/Things
-  spawnAreaRadius: 3
+  assemblyReferences: []
+  thingScriptDirectoryPath: 
+  spawnAreaRadius: 10
   useCubeAsMesh: 0
 --- !u!4 &1110976140
 Transform:
@@ -902,41 +903,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec6dee31d9a28974487a57d6361655de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabFolderPath: ThingPrefabs
-  spawnAreaRadius: 20
-  bornRate: 0.2
-  allPrefabs:
-  - {fileID: 6649388791413040484, guid: 6b69834e0b92e8a429aa0ad88fd3f063, type: 3}
-  - {fileID: 5109951152796424578, guid: 4b266585a66be8a44acf2eadf52ea671, type: 3}
-  - {fileID: 7837576436014259113, guid: b33d43e4c663c1b47a9a824f868b8b32, type: 3}
-  - {fileID: 9030009482503779057, guid: 3caf5981089fdb84e970be1955e7557e, type: 3}
-  - {fileID: 3044703190023408416, guid: bfdf0bd737f69fc4aa576724bf90545a, type: 3}
-  - {fileID: 9065129949399935990, guid: e143b0f228523544dbfd64719ae30440, type: 3}
-  - {fileID: 6845812431288912254, guid: 6c8a71fc8332a8d4483f70ebd6d57123, type: 3}
-  - {fileID: 2376072324437296883, guid: 89cf419ab0c7ccd41b449b2249f52742, type: 3}
-  - {fileID: 7873844536214458764, guid: ef089e62ca30b5548817ecd7af2d59c5, type: 3}
-  - {fileID: 132576686763772387, guid: d146209981f191c4d9fbf15e7d8d3ca9, type: 3}
-  - {fileID: 5713658630847360641, guid: 3fac6ce2231392241a8f18a47dcdd375, type: 3}
-  - {fileID: 8412559151785539665, guid: 410baf8e3c1f3fd4aab9baa5e2f7e27b, type: 3}
-  - {fileID: 8919502760681070362, guid: ab81b851254061144b5c8ba06a254f25, type: 3}
-  - {fileID: 6155118874676517033, guid: 9586bccb33548094999361af1c7653e2, type: 3}
-  - {fileID: 6036858985077181672, guid: 85fe8ca899a100944a037d463ee648c3, type: 3}
-  - {fileID: 100826673365559815, guid: 1d08330ac9cf75348ad5751187d25b24, type: 3}
-  - {fileID: 3364138969589958270, guid: 1b5b47ecca03baf47a23bd6902b9cc1a, type: 3}
-  - {fileID: 7476591834632055266, guid: 9433e350594ed914d83fe1678b8ee17c, type: 3}
-  - {fileID: 5714534757298064292, guid: f4a17650ad655c740b3555bebe8fd606, type: 3}
-  - {fileID: 1033666402514121388, guid: c144181fd735eea4da481eec2fb6b4a3, type: 3}
-  - {fileID: 4225535587243126161, guid: 1e17d3f52457ded4f83665d08f0d65bc, type: 3}
-  - {fileID: 4876127731270769352, guid: 8dca2f7ff9b4e274b9bd03e36a033c30, type: 3}
-  - {fileID: 4811960103715640414, guid: ccab141ef442a5649b9c90802ed499e7, type: 3}
-  - {fileID: 5916275935035227483, guid: e47cdf0ab0e9f8f4492fa415b16a74a9, type: 3}
-  - {fileID: 4683231209695504336, guid: e192730451ef37644b78db87d0ad45ee, type: 3}
-  - {fileID: 5806352690327805521, guid: d9297af53be8f254b9c2cf6736f2d99f, type: 3}
-  - {fileID: 6965043033551720122, guid: 09f5cbe6f58a2134daf1d86ca912ab44, type: 3}
-  - {fileID: 3272784651878522809, guid: 1d82cefa5d66c3947a312e07db4a258c, type: 3}
-  - {fileID: 7250941175166152207, guid: fbb632586924ec9468d5d8f6fbf3af53, type: 3}
-  - {fileID: 2619934697862913816, guid: 8bdeb8d847f689a4bb2218164c2629fc, type: 3}
-  - {fileID: 1054368546738936381, guid: ed63c27fc49696d4e8f72edfe385ece6, type: 3}
 --- !u!1 &1176673582
 GameObject:
   m_ObjectHideFlags: 0
