@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 1.3313136, g: 1.1563598, b: 0.34473136, a: 1}
+  m_IndirectSpecularColor: {r: 1.3313136, g: 1.1563599, b: 0.3447317, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -275,6 +275,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -359,6 +360,8 @@ MonoBehaviour:
   intervals: 20
   mainCam: {fileID: 963194225}
   followCam: {fileID: 1386320753}
+  farPlateSize: 6
+  nearPlateSize: 1
 --- !u!4 &471179673
 Transform:
   m_ObjectHideFlags: 0
@@ -762,6 +765,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -903,6 +907,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec6dee31d9a28974487a57d6361655de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabFolderPath: ThingPrefabs
+  spawnAreaRadius: 10
+  bornRate: 0.2
+  allPrefabs: []
 --- !u!1 &1176673582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1323,7 +1331,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6ab3d280869ac441e81253e133f18c4a, type: 3}
+    m_Font: {fileID: 12800000, guid: 5a5827580f2a04cb9be5917d94b20271, type: 3}
     m_FontSize: 4
     m_FontStyle: 0
     m_BestFit: 0

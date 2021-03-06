@@ -27,6 +27,9 @@ namespace ThingSpace
         float hue = 0;
         float time = 0;
 
+        public int farPlateSize = 5;
+        public int nearPlateSize = 1;
+
         void Awake()
         {
             main = this;
@@ -89,7 +92,7 @@ namespace ThingSpace
 
             foreach (var t in ThingGod.god.things)
             {
-                t.plate.fontSize = useMain ? 5 : 1;
+                t.plate.fontSize = useMain ? farPlateSize : nearPlateSize;
             }
 
             //set active

@@ -183,9 +183,6 @@
         },
         {
             "m_Id": "fd74b1a164e144268f4dca05ad484d59"
-        },
-        {
-            "m_Id": "303c5975841a4c119d4b861ee9e854b7"
         }
     ],
     "m_GroupDatas": [],
@@ -770,9 +767,6 @@
             },
             {
                 "m_Id": "fd74b1a164e144268f4dca05ad484d59"
-            },
-            {
-                "m_Id": "303c5975841a4c119d4b861ee9e854b7"
             }
         ]
     },
@@ -1097,21 +1091,6 @@
         "b": 0.0,
         "a": 0.0
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
-    "m_ObjectId": "088b1849cc634e7dbda7804513853c81",
-    "m_Id": 0,
-    "m_DisplayName": "Metallic",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Metallic",
-    "m_StageCapability": 2,
-    "m_Value": 0.0,
-    "m_DefaultValue": 0.0,
-    "m_Labels": []
 }
 
 {
@@ -1449,6 +1428,8 @@
         "m_GuidSerialized": "99e58341-236c-4463-a9d3-9a219a42692d"
     },
     "m_Name": "VertexDisNoiseScale",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_F633F5E0",
     "m_OverrideReferenceName": "_VertexDisNoiseScale",
     "m_GeneratePropertyBlock": true,
@@ -1496,6 +1477,8 @@
         "m_GuidSerialized": "47d2b0fa-1dbf-4dc7-9a28-4d661b6db859"
     },
     "m_Name": "DitherSize",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_EAE50C3",
     "m_OverrideReferenceName": "_DitherSize",
     "m_GeneratePropertyBlock": true,
@@ -1576,6 +1559,8 @@
         "m_GuidSerialized": "5f879f66-8ae9-4d04-86d3-b5e2e771271c"
     },
     "m_Name": "UseVertexAnimation",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Boolean_E2B7883C",
     "m_OverrideReferenceName": "_VertexAnimation",
     "m_GeneratePropertyBlock": true,
@@ -2087,39 +2072,6 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "VertexDescription.Normal"
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
-    "m_ObjectId": "303c5975841a4c119d4b861ee9e854b7",
-    "m_Group": {
-        "m_Id": ""
-    },
-    "m_Name": "SurfaceDescription.Metallic",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "088b1849cc634e7dbda7804513853c81"
-        }
-    ],
-    "synonyms": [],
-    "m_Precision": 0,
-    "m_PreviewExpanded": true,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    },
-    "m_SerializedDescriptor": "SurfaceDescription.Metallic"
 }
 
 {
@@ -2720,6 +2672,8 @@
         "m_GuidSerialized": "6c66cac9-4f1b-45b7-89af-5c795e8a6105"
     },
     "m_Name": "UVMultiplier",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_CA5CAA00",
     "m_OverrideReferenceName": "_UVMultiplier",
     "m_GeneratePropertyBlock": true,
@@ -3444,6 +3398,8 @@
         "m_GuidSerialized": "07ad1e8d-f618-4b06-9fd2-ee6d6891f1d1"
     },
     "m_Name": "OffsetTime",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_47E6CEE",
     "m_OverrideReferenceName": "_OffsetTime",
     "m_GeneratePropertyBlock": true,
@@ -3754,6 +3710,8 @@
         "m_GuidSerialized": "eecbe987-ead2-48e5-880b-e065910935e1"
     },
     "m_Name": "AnimateColorGradient",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Boolean_8002BA7C",
     "m_OverrideReferenceName": "_AnimatorSwitch",
     "m_GeneratePropertyBlock": true,
@@ -4016,13 +3974,15 @@
 }
 
 {
-    "m_SGVersion": 0,
+    "m_SGVersion": 1,
     "m_Type": "UnityEditor.ShaderGraph.ShaderKeyword",
     "m_ObjectId": "9ef35b3849c242458168c9f74a8b1b1a",
     "m_Guid": {
         "m_GuidSerialized": "0e9825b8-b018-446c-9d46-b9c85e5275ee"
     },
     "m_Name": "use dither",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "BOOLEAN_9EF35B3849C242458168C9F74A8B1B1A_ON",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
@@ -4224,6 +4184,8 @@
         "m_GuidSerialized": "f0237143-6108-414a-b9e6-ae154979001f"
     },
     "m_Name": "VertexDisScale",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector3_3D6BC3F4",
     "m_OverrideReferenceName": "_VertexDisScale",
     "m_GeneratePropertyBlock": true,
@@ -4569,6 +4531,8 @@
         "m_GuidSerialized": "09079290-5bc3-4c57-b34e-b00fdf84453d"
     },
     "m_Name": "ColorA2",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Color_B4B743EC",
     "m_OverrideReferenceName": "_ColorA2",
     "m_GeneratePropertyBlock": true,
@@ -4846,7 +4810,7 @@
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalLitSubTarget",
     "m_ObjectId": "d5844f40802f4168aa17ab74e7376223",
-    "m_WorkflowMode": 1,
+    "m_WorkflowMode": 0,
     "m_NormalDropOffSpace": 0,
     "m_ClearCoat": false
 }
@@ -5173,6 +5137,8 @@
         "m_GuidSerialized": "2a8c65fb-8157-46e0-82b3-328beadf1aca"
     },
     "m_Name": "ColorA1",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Color_89E85DA7",
     "m_OverrideReferenceName": "_ColorA1",
     "m_GeneratePropertyBlock": true,
@@ -5313,6 +5279,8 @@
         "m_GuidSerialized": "3f59888f-a288-43b6-ac97-595abb0d90d7"
     },
     "m_Name": "TimeScale",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_B0E3B6E8",
     "m_OverrideReferenceName": "_TimeScale",
     "m_GeneratePropertyBlock": true,
