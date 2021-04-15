@@ -134,5 +134,5 @@ Material:
     - _ColorB2: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
-    - _VertexDisScale: {r: 1, g: 1, b: 1, a: 0}
+    - _VertexDisScale: {r: 0.8, g: 0.8, b: 0.8, a: 0}
   m_BuildTextureStacks: []
