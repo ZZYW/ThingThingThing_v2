@@ -1,4 +1,5 @@
 #if !UNITY_WEBGL || !UNITY_STANDALONE
+#if !UNITY_IOS
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -86,5 +87,5 @@ namespace ThingSpace
 
     }
 }
-
+#endif
 #endif

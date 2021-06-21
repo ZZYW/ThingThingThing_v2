@@ -32,7 +32,7 @@ public class ThingMakerWebGL : MonoBehaviour
             var go = GameObject.Instantiate(prefab);
             //reset new thing's position
             go.transform.position = Random.insideUnitSphere * spawnAreaRadius;
-            var newThing = go.GetComponent<Thing>();
+            var newThing = go.GetComponent<Thing>();            
             if (ThingGod.ThingBornEvent != null) ThingGod.ThingBornEvent(newThing);
             yield return new WaitForSeconds(bornRate);
         }
