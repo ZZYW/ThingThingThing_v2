@@ -13,19 +13,23 @@ namespace ThingSpace
         public bool rollCalling = true;
         public float interval = 5f;
 
-        // Use this for initialization
-        void Start()
-        {
-            // StartCoroutine(ChangeFollowTarget());
-        }
 
-        // Update is called once per frame
-        void Update()
+        //smooth
+        Vector3 posVel;
+
+
+        void FixedUpdate()
         {
             if (followTarget == null) return;
 
-            transform.position = followTarget.position - (followDistance * followTarget.forward) + new Vector3(0, elevation, 0);
-            transform.LookAt(followTarget);
+            Vector3 posTarget = followTarget.position - (followDistance * followTarget.forward) + new Vector3(0, elevation, 0);
+            transform.position = Vector3.SmoothDamp(transform.position, posTarget, ref posVel, 1);
+
+
+            // transform.LookAt(followTarget);
+            var lookRot = Quaternion.LookRotation( followTarget.position - transform.position, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation.normalized, lookRot, 0.1f);
+
         }
 
         IEnumerator ChangeFollowTarget()
