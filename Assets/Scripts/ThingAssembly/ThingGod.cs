@@ -25,8 +25,11 @@ namespace ThingSpace
         public Material deadMat;
         public UnityEngine.UI.Text plateSample;
 
+        public int maxNumThing = 50;
+
         public AudioClip[] audioClips;
 
+        object locker;
         void Awake()
         {
             god = this;
@@ -126,6 +129,36 @@ namespace ThingSpace
             //create a overhead text for it
             t.plate = getNewPlateText();
 
+            if (things.Count > maxNumThing)
+            {
+                //pick one to destroy
+                int i = Random.Range(0, things.Count);
+                Thing toDestroy = things[i];
+                while (toDestroy == t)
+                {
+                    i = Random.Range(0, things.Count);
+                    toDestroy = things[i];
+                }
+
+                things.RemoveAt(i);
+                if (flock.Contains(toDestroy))
+                    flock.Remove(toDestroy);
+
+                Debug.LogWarning("total number of things exceeding max num, deleting a random thing");
+                ProperDestroy(toDestroy);
+
+
+            }
+
+        }
+
+        public static void ProperDestroy(Thing target)
+        {
+            Destroy(target.plate.gameObject);
+            Destroy(target.GetComponent<Thing>());
+            Destroy(target.GetComponent<Boid>());
+            Destroy(target.GetComponent<RuntimeMeshSimplifier>());
+            Destroy(target.GetComponent<MeshSimplify>());
 
         }
 

@@ -10,7 +10,7 @@ namespace ThingSpace
 {
     [RequireComponent(typeof(Boid))]
     [RequireComponent(typeof(MeshRenderer))]
-    [RequireComponent(typeof(MeshFilter))]    
+    [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(RuntimeMeshSimplifier))]
     [RequireComponent(typeof(AudioSource))]
     public abstract class Thing : MonoBehaviour
@@ -21,6 +21,8 @@ namespace ThingSpace
         }
 
         bool inCD;
+        bool stealCD;
+        float stealCDLength = 10;
         float cdLength = 0.25f;
 
         //child class will change those:
@@ -132,12 +134,12 @@ namespace ThingSpace
                 {
                     gameObject.AddComponent<BoxCollider>();
                 }
-                
+
 
                 //set size
                 gameObject.transform.localScale = new Vector3((float)width, (float)height, (float)depth);
 
-                
+
             }
 
             audioSource = GetComponent<AudioSource>();
@@ -151,11 +153,17 @@ namespace ThingSpace
 
         IEnumerator ResetCD()
         {
-            while (true)
+            while (gameObject != null)
             {
                 yield return new WaitForSeconds(cdLength);
                 inCD = false;
             }
+        }
+
+        IEnumerator ResetStealCD()
+        {
+            yield return new WaitForSeconds(stealCDLength);
+            stealCD = false;
         }
 
         void Update()
@@ -205,7 +213,7 @@ namespace ThingSpace
         public void Steal(Thing another)
         {
 
-            if (another == null || another == this || inCD || !another.gameObject.activeInHierarchy || !this.gameObject.activeInHierarchy) return;
+            if (another == null || another == this || inCD || !another.gameObject.activeInHierarchy || !this.gameObject.activeInHierarchy || stealCD) return;
             //Debug.Log(name + " steal " + another.name);
 
             ChangeVertexAmount(another, -0.1f);
@@ -214,6 +222,8 @@ namespace ThingSpace
 
             if (ThingGod.StealEvent != null) ThingGod.StealEvent(this, another);
             inCD = true;
+            stealCD = true;
+            StartCoroutine(ResetStealCD());
         }
 
         public void Gift(Thing another)
@@ -270,15 +280,12 @@ namespace ThingSpace
         {
             if (another == null || another == this || inCD || !another.gameObject.activeInHierarchy || !this.gameObject.activeInHierarchy) return;
             //Debug.Log(name + " Erase " + another.name);
-
-            Destroy(another.plate.gameObject);
-            Destroy(another.GetComponent<Thing>());
-            Destroy(another.GetComponent<Boid>());
-            Destroy(another.GetComponent<RuntimeMeshSimplifier>());
-            Destroy(another.GetComponent<MeshSimplify>());
+            ThingGod.ProperDestroy(another);
             if (ThingGod.EraseEvent != null) ThingGod.EraseEvent(this, another);
             inCD = true;
         }
+
+
 
         public void Group(Thing another)
         {

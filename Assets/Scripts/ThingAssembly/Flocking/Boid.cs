@@ -58,7 +58,7 @@ namespace ThingSpace
 
         // We accumulate a new acceleration each time based on three rules
         void Flock(List<Boid> boids)
-        {
+        {                        
             // Debug.Log(boids.Count);
             Vector3 sep = Separate(boids);   // Separation
             Vector3 ali = Align(boids);      // Alignment
@@ -92,7 +92,7 @@ namespace ThingSpace
             //reset finalforce
             finalForce = Vector3.zero;
             var boidList = ThingGod.god.flock.Select(i => i.GetComponent<Boid>()).ToList();
-           
+            
             Flock(boidList);
 
             if (target != null)
