@@ -84,6 +84,7 @@ namespace ThingSpace
 
             bool isOriginal = GetComponent<MeshFilter>().sharedMesh == null;
 
+
             if (isOriginal)
             {
 
@@ -122,8 +123,6 @@ namespace ThingSpace
                     mat.SetColor("_ColorA1", color);
                     mat.SetColor("_ColorA2", accentColor);
                 }
-
-
 
 
 
