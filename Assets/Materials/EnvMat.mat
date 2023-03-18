@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 4
+  version: 5
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -23,7 +23,8 @@ Material:
   m_Name: EnvMat
   m_Shader: {fileID: -6465566751694194690, guid: 8dd69e9757b9518489fcfeddcb9f2aa5,
     type: 3}
-  m_ShaderKeywords: N_F_EAL_ON N_F_O_ON N_F_RELGI_ON N_F_SS_ON _EMISSION _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -141,6 +142,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - BOOLEAN_9EF35B3849C242458168C9F74A8B1B1A: 1
     - Vector1_8ac8fe2e89444cbcbabb0aa095f9d1ca: 17.22
@@ -234,6 +236,7 @@ Material:
     - _PTexturePower: 1
     - _Parallax: 0.02
     - _PointSpotlightIntensity: 0
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _RELG: 1
     - _ReceiveShadows: 1
@@ -296,7 +299,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.83391345, g: 1, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.83391345, g: 1, b: 0.7411765, a: 1}
     - _ColorA1: {r: 1, g: 0.9082564, b: 0, a: 0}
     - _ColorA2: {r: 0, g: 1, b: 0.9211519, a: 0}
     - _ColorB1: {r: 1, g: 0.6462264, b: 0.65038854, a: 0}
