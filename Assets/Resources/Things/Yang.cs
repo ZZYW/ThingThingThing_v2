@@ -14,6 +14,8 @@ namespace ThingSpace
             // set the mesh index to 21 (provided by user)
             meshIndex = 21;
 
+            // set the vertex count to 50 (provided by user)
+            
 
             // set the speed to 10 (provided by user)
             speed = 10;
@@ -30,14 +32,26 @@ namespace ThingSpace
             // set the width, height and depth to 3 (provided by user)
             width = height = depth = 3;
 
-     
+            // set the color to #808080 (provided by user)
+            string hex = "#808080";
+
 
             // set the red, green and blue properties (provided by user)
             red = 0.502;
             green = 0.502;
             blue = 0.502;
 
-         
+            //set color
+            Color color = new Color((float)red, (float)green, (float)blue);
+            float h, s, v;
+            Color.RGBToHSV(color, out h, out s, out v);
+
+            foreach (var mat in GetComponent<MeshRenderer>().materials)
+            {
+                mat.SetColor("_ColorA1", color);
+       
+            }
+
             // Implement other behaviors as defined by the user.
         }
 

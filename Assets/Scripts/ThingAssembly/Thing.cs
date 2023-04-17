@@ -269,7 +269,7 @@ namespace ThingSpace
         {
             if (another == null || another == this || inCD || !another.gameObject.activeInHierarchy || !this.gameObject.activeInHierarchy) return;
             //Debug.Log(name + " Erase " + another.name);
-
+            if (!another.plate) return;
             Destroy(another.plate.gameObject);
             Destroy(another.GetComponent<Thing>());
             Destroy(another.GetComponent<Boid>());
